@@ -1,24 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import { GlobalStyles, Grid } from "@mui/material";
+import { ThemeProvider as MuiThemeProvider } from "@mui/material";
+
+import { darkTheme } from "./themes/darkTheme.ts";
+import { clairTheme } from "./themes/clairTheme.ts";
+import Header from "./components/common/Header";
+import NavBar from "./components/common/NavBar";
+import Login from "./components/login/Login";
+import { useEffect, useState } from "react";
+import { useThemeMode, toggleTheme } from "./context/ThemeModeContext";
+import "./styles/Global.css";
+import Settings from "./components/settings/settings.js";
 
 function App() {
+  const [token, setToken] = useState(null);
+  const { themeMode, toggleTheme } = useThemeMode();
+
+  const theme = themeMode === "dark" ? darkTheme : clairTheme;
+
+  useEffect(() => {
+    toggleTheme();
+    setToken(localStorage.getItem("token"));
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <MuiThemeProvider theme={theme}>
+      <GlobalStyles
+        styles={{
+          body: {
+            backgroundColor: theme.palette.background.default,
+          },
+        }}
+      />
+      <Header themeMode={themeMode} />
+      {token ? (
+        <>
+          <Grid container className="gridComponentLittle">
+            <Settings />
+          </Grid>
+          <NavBar />
+        </>
+      ) : (
+        <Grid container className="gridComponentLittle">
+          <Login />
+        </Grid>
+      )}
+    </MuiThemeProvider>
   );
 }
 

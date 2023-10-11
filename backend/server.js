@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cron = require('node-cron');
+const cors = require('cors'); // N'oubliez pas d'importer cors ici
 require('dotenv').config();
 
 const { addDayWithoutAccident, initializeAccident } = require('./controllers/accidentController');
@@ -11,9 +12,12 @@ const userRoutes = require('./Routes/UserRoutes');
 const app = express();
 
 // Connecter à MongoDB
-mongoose.connect('mongodb://localhost/AccTechniDB', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://127.0.0.1:27017/AccTechniDB', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('Could not connect to MongoDB...', err));
+
+// Middleware pour utiliser cors
+app.use(cors()); // Utilisez cors ici - cela permettra les requêtes cross-origin
 
 // Middleware pour parser le JSON
 app.use(express.json());
@@ -28,6 +32,7 @@ cron.schedule('0 0 * * *', async () => {
         console.error('Error while adding a day without accident', error);
     }
 });
+
 try {
     initializeAccident();
 } catch (error) {
@@ -35,15 +40,15 @@ try {
 }
 
 // Routes
-app.use('/api/accident', accidentRoutes);
 app.use('/api/auth', userRoutes);
+app.use('/api/accident', accidentRoutes);
 
 // Middleware pour gérer les erreurs
 app.use((err, req, res, next) => {
-    console.error(err.stack);
+    console.error("error",err.stack);
     res.status(500).send('Something broke!');
 });
 
 // Démarrer le serveur
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
