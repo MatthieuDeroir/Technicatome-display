@@ -38,10 +38,6 @@ function SlideshowList(props) {
     fetchData();
   }, []);
 
-  function openAddSlideshowDialog() {
-    setAddDialogOpen(true);
-  }
-
   async function AddSlideshow(name) {
     const data = { name: name };
     await slideshowService.createSlideshow(data).then((data) => {
@@ -73,6 +69,8 @@ function SlideshowList(props) {
     setAddDialogOpen(false);
   }
 
+  
+
   return (
     <>
       <Grid item xs={12}>
@@ -91,14 +89,21 @@ function SlideshowList(props) {
               </Typography>
             </Box>
             <Box className="headerRight">
-              <IconButton
-                className="headerButton"
-                onClick={() => {
-                  openAddSlideshowDialog();
-                }}
-              >
-                <AddIcon sx={{ color: "secondary.main" }} />
-              </IconButton>
+            <IconButton
+              className="headerButton"
+              onClick={() => {
+                document.getElementById("inputFile").click();
+              }}
+            >
+              <AddIcon sx={{ color: "secondary.main" }} />
+            </IconButton>
+
+           {/*  <input
+              type="file"
+              id="inputFile"
+              style={{ display: "none" }}
+              onChange={goToCrop}
+            /> */}
             </Box>
           </Stack>
           <Box className="containerPage">
