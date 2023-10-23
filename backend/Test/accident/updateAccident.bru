@@ -1,0 +1,25 @@
+meta {
+  name: updateAccident
+  type: http
+  seq: 2
+}
+
+put {
+  url: http://localhost:4000/api/accident
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MjNjZWVmMDIwY2U1ZDU5YmM2NzQxYSIsImlhdCI6MTY5ODA0NzQwNywiZXhwIjoxNjk4MTMzODA3fQ.1aBi1BQU720Q1w-f7fYAG98AZYzRsAxSaZoV65m10Rw
+}
+
+body:json {
+  {
+      "daysWithoutAccident": 10,
+      "recordDaysWithoutAccident": 0,
+      "numberOfAccidentsSinceStartOfTheYear": 0,
+      "scrollingText": "",
+      "__v": 0
+    }
+}

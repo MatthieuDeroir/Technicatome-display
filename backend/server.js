@@ -8,6 +8,8 @@ const { addDayWithoutAccident, initializeAccident } = require('./controllers/acc
 
 const accidentRoutes = require('./Routes/AccidentRoutes');
 const userRoutes = require('./Routes/UserRoutes');
+const veilleRoutes = require('./Routes/VeilleRoutes');
+const slideshowRoutes = require('./Routes/SlideshowRoutes');
 
 const app = express();
 
@@ -42,6 +44,9 @@ try {
 // Routes
 app.use('/api/auth', userRoutes);
 app.use('/api/accident', accidentRoutes);
+app.use('/api/veille', veilleRoutes);
+app.use('/api/slideshow', slideshowRoutes);
+
 
 // Middleware pour gérer les erreurs
 app.use((err, req, res, next) => {

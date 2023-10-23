@@ -2,17 +2,15 @@
   "loginTitle": "Connexion",
   "usernameLabel": "Utilisateur",
   "passwordLabel": "Mot de passe",
-  "football": "Football",
-  "basketball": "Basketball",
-  "tennis": "Tennis",
   "loginButton": "Se connecter",
   "loginErrorMessage": "Mot de passe incorrect",
-  "eventListTitle": "Liste des Diaporamas",
-  "eventListEmptyText": "Ajouter un diaporama '+'",
-  "diaporama": "Diaporama",
-  "deposezDesMediasIci": "Déposez des médias ici",
+  
+
   "media": "Média",
-  "ajouterMedia": "Ajouter média \"+\"",
+  "preview": "Aperçu",
+  "controlPanel": "Panneau de contrôle",
+  "slideshowListEmptyText": "Ajouter un diaporama '+'",
+  "Slideshow":"Diaporama",
   "upload": "Upload",
   "passwordMismatch": "Les mots de passe ne correspondent pas",
   "changePassword": "Modifier le mot de passe",
@@ -47,25 +45,6 @@
   "badminton": "Badminton",
   "logout": "Déconnexion",
   "confirm": "Confirme",
-  "settingsOf": "Paramètres",
-  "application": "Application",
-  "darkMode": "Mode sombre",
-  "usedStorageSpace": "Espace de stockage utilisé",
-  "panelsTest": "Test des panneaux",
-  "languages": "Langues",
-  "info": "Info",
-  "account": "Compte",
-  "autoEvent": "Événement auto",
-  "automaticStandby": "Mise en veille automatique",
-  "macro": {
-    "title": "Macro",
-    "number": "Numéro",
-    "event": "Événement",
-    "none": "Aucun"
-  },
-  "profile": {
-    "settingsOf": "Paramètres",
-    "changePassword": "Modifier son mot de passe",
-    "darkMode": "Mode sombre"
-  }
+  "settingsOf": "Paramètres"
+ 
 }

@@ -89,7 +89,7 @@ function Settings() {
             }}
           >
             <Grid container spacing={6}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={12}>
                 <Stack spacing={2}>
                   {/* <Typography variant="h6" sx={{ color: "text.secondary" }}>
                     {t("application")}
@@ -131,7 +131,7 @@ function Settings() {
                     </Stack>
                     <Switch checked={themeMode} color="secondary" />
                   </Stack>
-                  <Stack
+                  {/* <Stack
                     onClick={toggleModal}
                     direction="row"
                     alignItems="center"
@@ -151,7 +151,7 @@ function Settings() {
                         color={percentage > 80 ? "error" : "secondary"}
                       />
                     </Box>
-                  </Stack>
+                  </Stack> */}
                   <Stack direction="row" alignItems="center" spacing={3}>
                     <IconButton disabled>
                       <BugReportIcon sx={{ color: "text.secondary" }} />
@@ -185,17 +185,7 @@ function Settings() {
                       0123456789
                     </Typography>
                   </Stack>
-                </Stack>
-              </Grid>
-              <Grid
-                /*   style={{
-                  paddingTop: "15px"
-                }} */
-                item
-                xs={12}
-                sm={6}
-              >
-                <Stack spacing={2}>
+               
                   {/* <Typography variant="h6" sx={{ color: "text.secondary" }}>
                     {t("account")}
                   </Typography> */}

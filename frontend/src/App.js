@@ -1,4 +1,4 @@
-import { GlobalStyles, Grid } from "@mui/material";
+import { Box, GlobalStyles, Grid } from "@mui/material";
 import { ThemeProvider as MuiThemeProvider } from "@mui/material";
 
 import { darkTheme } from "./themes/darkTheme.ts";
@@ -9,7 +9,7 @@ import Login from "./components/login/Login";
 import { useEffect, useState } from "react";
 import { useThemeMode, toggleTheme } from "./context/ThemeModeContext";
 import "./styles/Global.css";
-import Settings from "./components/settings/settings.js";
+import DashBoard from "./components/dashboard/Dashboard.js";
 
 function App() {
   const [token, setToken] = useState(null);
@@ -20,6 +20,7 @@ function App() {
   useEffect(() => {
     toggleTheme();
     setToken(localStorage.getItem("token"));
+    console.log("theme", theme);
   }, []);
 
   return (
@@ -32,18 +33,21 @@ function App() {
         }}
       />
       <Header themeMode={themeMode} />
-      {token ? (
-        <>
+      <Box className="mainContainer">
+        {token ? (
+          <>
+            <Grid container className="gridComponentLittle">
+              <DashBoard />
+            </Grid>
+          </>
+        ) : (
           <Grid container className="gridComponentLittle">
-            <Settings />
+            <Login />
           </Grid>
-          <NavBar />
-        </>
-      ) : (
-        <Grid container className="gridComponentLittle">
-          <Login />
-        </Grid>
-      )}
+        )}
+       
+      </Box>
+      <NavBar />
     </MuiThemeProvider>
   );
 }

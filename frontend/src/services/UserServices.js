@@ -22,7 +22,6 @@ function signin(username, password) {
       return response.json();  
     })
     .then(user => {
-    
       return user;
     })
     .catch(error => {
