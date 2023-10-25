@@ -1,17 +1,15 @@
-const fileupload = require("express-fileupload");
-const fs = require("fs");
+const multer = require('multer');
+const path = require('path');
 
-const uploadMiddleware = (app) => {
-    app.use(fileupload());
-    app.use(express.static("medias"));
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, '../../frontend/public/media/'))
+  },
+  filename: function (req, file, cb) {
+    cb(null, req.body.fileName + "." + req.body.format)
+  }
+})
 
-    app.post("/upload", (req, res) => {
-        // Votre logique d'upload
-    });
+const upload = multer({ storage: storage });
 
-    app.post("/delete", (req, res) => {
-        // Votre logique de suppression
-    });
-};
-
-export default uploadMiddleware;
+module.exports = upload;

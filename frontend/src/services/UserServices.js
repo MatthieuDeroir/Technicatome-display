@@ -7,13 +7,15 @@ export const userService = {
   signup,
 };
 
-function signin(username, password) {
-    return fetch(`${API_URL}/api/auth/signin`, { 
+function signin(data) {
+  console.log("signin");
+  console.log(data);
+    return fetch(`${API_URL}/api/auth/signing`, { 
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(username, password ),  
+      body: JSON.stringify(data),  
     })
     .then(response => {
       if (!response.ok) { 

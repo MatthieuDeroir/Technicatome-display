@@ -5,10 +5,10 @@ const MediaSchema = new mongoose.Schema({
     id: {
         type: Number,
     },
-    name:{
+    originalFilename:{
         type: String,
     },
-    mediaName:{
+    hashedFilename:{
         type: String,
     },
     user:{

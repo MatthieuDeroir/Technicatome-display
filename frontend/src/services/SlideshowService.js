@@ -1,6 +1,7 @@
 import config from "../config/config.json";
 const API_URL = config.API_URL;
-const TOKEN = localStorage.getItem('token'); // Récupère le token du localStorage
+const TOKEN = JSON.parse(localStorage.getItem('token')); // Récupère le token du localStorage et enlève les guillemets
+
 
 export const slideshowService = {
   getSlideshow,

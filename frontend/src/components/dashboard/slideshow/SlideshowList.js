@@ -13,42 +13,29 @@ import {
 import { t } from "i18next";
 import FolderIcon from "@mui/icons-material/Folder";
 import AddIcon from "@mui/icons-material/Add";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { slideshowService } from "../../../services/SlideshowService";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DeleteSlideshowDialog from "../../dialogs/DeleteSlideshowDialog";
 import AddSlideshowDialog from "../../dialogs/AddSlideshowDialog";
+import { useEffect } from "react";
 
 function SlideshowList(props) {
   const [addDialogOpen, setAddDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  const [slideshows, setSlideshows] = useState([]);
   const [slideshowToDelete, setSlideshowToDelete] = useState({});
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const data = await slideshowService.getSlideshow();
-        const dataSlideshow = data.data.slideshows;
-        setSlideshows(dataSlideshow);
-      } catch (error) {
-        console.error("Erreur lors de la récupération du slideshow:", error);
-      }
-    }
-    fetchData();
-  }, []);
+  useEffect(() => {console.log("test02", props.slideshows);}, []);
 
   async function AddSlideshow(name) {
     const data = { name: name };
     await slideshowService.createSlideshow(data).then((data) => {
       console.log("data", data);
-      setSlideshows([...slideshows, data.data.slideshow]);
+      props.setSlideshows([...props.slideshows, data.data.slideshow]);
       closeDialog();
     });
   }
 
   function openDeleteDialog(slideshow) {
-    console.log("slideshow", slideshow.name);
     setDeleteDialogOpen(true);
     setSlideshowToDelete(slideshow);
   }
@@ -56,8 +43,8 @@ function SlideshowList(props) {
   async function deleteSlideshow(eventToDelete) {
     console.log("eventToDelete", eventToDelete);
     await slideshowService.deleteSlideshow(eventToDelete).then((data) => {
-      setSlideshows(
-        slideshows.filter((slideshow) => slideshow._id !== eventToDelete)
+      props.setSlideshows(
+        props.slideshows.filter((slideshow) => slideshow._id !== eventToDelete)
       );
       closeDialog();
       setSlideshowToDelete({});
@@ -68,8 +55,6 @@ function SlideshowList(props) {
     setDeleteDialogOpen(false);
     setAddDialogOpen(false);
   }
-
-  
 
   return (
     <>
@@ -89,16 +74,16 @@ function SlideshowList(props) {
               </Typography>
             </Box>
             <Box className="headerRight">
-            <IconButton
-              className="headerButton"
-              onClick={() => {
-                document.getElementById("inputFile").click();
-              }}
-            >
-              <AddIcon sx={{ color: "secondary.main" }} />
-            </IconButton>
+              <IconButton
+                className="headerButton"
+                onClick={() => {
+                  setAddDialogOpen(true);
+                }}
+              >
+                <AddIcon sx={{ color: "secondary.main" }} />
+              </IconButton>
 
-           {/*  <input
+              {/*  <input
               type="file"
               id="inputFile"
               style={{ display: "none" }}
@@ -106,10 +91,9 @@ function SlideshowList(props) {
             /> */}
             </Box>
           </Stack>
-          <Box className="containerPage">
-            {slideshows && slideshows.length ? (
+            {props.slideshows ? (
               <Box className="containerPage">
-                {slideshows.map((slideshow) => (
+                {props.slideshows.map((slideshow) => (
                   <Table size="big" key={slideshow._id}>
                     <TableBody>
                       <TableRow hover>
@@ -147,7 +131,7 @@ function SlideshowList(props) {
                 </Typography>
               </Box>
             )}
-          </Box>
+
         </Paper>
       </Grid>
       <DeleteSlideshowDialog

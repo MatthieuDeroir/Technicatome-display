@@ -10,6 +10,7 @@ const accidentRoutes = require('./Routes/AccidentRoutes');
 const userRoutes = require('./Routes/UserRoutes');
 const veilleRoutes = require('./Routes/VeilleRoutes');
 const slideshowRoutes = require('./Routes/SlideshowRoutes');
+const mediaRoute = require('./Routes/MediaRoute');
 
 const app = express();
 
@@ -46,6 +47,7 @@ app.use('/api/auth', userRoutes);
 app.use('/api/accident', accidentRoutes);
 app.use('/api/veille', veilleRoutes);
 app.use('/api/slideshow', slideshowRoutes);
+app.use('/api/media', mediaRoute);
 
 
 // Middleware pour gérer les erreurs
