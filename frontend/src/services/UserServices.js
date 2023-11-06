@@ -1,58 +1,54 @@
 import config from "../config/config.json";
+import { api } from "../helpers/api"; // Assurez-vous que le chemin d'importation est correct.
 
 const API_URL = config.API_URL;
 
 export const userService = {
-  signin,
+  signing,
   signup,
 };
 
-function signin(username, password) {
-    return fetch(`${API_URL}/api/auth/signin`, { 
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(username, password ),  
-    })
-    .then(response => {
-      if (!response.ok) { 
-        throw new Error('Network response was not ok');
-      }
-      return response.json();  
-    })
-    .then(user => {
-      return user;
-    })
-    .catch(error => {
-      console.error("There was a problem with the fetch operation:", error);
-    });
-  }
-  
+function signing(username, password) {
+  // Remarque : JSON.stringify devrait prendre un objet, pas deux arguments séparés.
+  return api.fetchWithAuthorization(`${API_URL}/api/auth/signing`, { 
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ username, password }),  
+  })
+  .then(handleResponse) // Utilisez handleResponse pour garder la cohérence.
+  .then(user => {
+    console.log("user", user);
+    // Sauvegardez le token dans le localStorage ou gérez l'utilisateur comme vous le souhaitez ici.
+    localStorage.setItem("token", user.accessToken);
+    return user;
+  })
+  .catch(error => {
+    console.error("Il y a eu un problème avec l'opération fetch :", error);
+  });
+}
 
 function signup(user) {
-  return fetch(`${API_URL}signup`, {
+  return api.fetchWithAuthorization(`${API_URL}/api/auth/signup`, { // Assurez-vous que l'URL est correcte.
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(user),
   })
-    .then(handleResponse)
-    .then((user) => {
-      // gérer les actions de l'utilisateur inscrit si nécessaire
-      return user;
-    });
+  .then(handleResponse) // Utilisez handleResponse pour garder la cohérence.
+  .then((user) => {
+    // Sauvegardez le token dans le localStorage ou gérez l'utilisateur comme vous le souhaitez ici.
+    return user;
+  });
 }
 
 function handleResponse(response) {
   return response.text().then((text) => {
     const data = text && JSON.parse(text);
     if (!response.ok) {
-      if ([401, 403].includes(response.status)) {
-        // gérer les cas d'erreur d'autorisation si nécessaire
-      }
-
+      // Ici, vous pouvez gérer les erreurs spécifiques si nécessaire.
       const error = (data && data.message) || response.statusText;
       return Promise.reject(error);
     }

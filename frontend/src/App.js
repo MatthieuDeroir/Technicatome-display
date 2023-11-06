@@ -7,7 +7,7 @@ import Header from "./components/common/Header";
 import NavBar from "./components/common/NavBar";
 import Login from "./components/login/Login";
 import { useEffect, useState } from "react";
-import { useThemeMode, toggleTheme } from "./context/ThemeModeContext";
+import { useThemeMode, toggleTheme } from "./context/ThemeModeContext.js";
 import "./styles/Global.css";
 import DashBoard from "./components/dashboard/Dashboard.js";
 

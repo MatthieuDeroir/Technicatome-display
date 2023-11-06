@@ -1,6 +1,7 @@
 import config from "../config/config.json";
+import { api } from "../helpers/api"; // Assurez-vous que le chemin d'importation est correct.
+
 const API_URL = config.API_URL;
-const TOKEN = localStorage.getItem('token'); // Récupère le token du localStorage
 
 export const slideshowService = {
   getSlideshow,
@@ -10,11 +11,10 @@ export const slideshowService = {
 };
 
 function getSlideshow() {
-  return fetch(`${API_URL}/api/slideshow`, {
+  return api.fetchWithAuthorization(`${API_URL}/api/slideshow`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${TOKEN}` // Ajout du token dans les en-têtes
     },
   })
   .then(handleResponse)
@@ -22,38 +22,37 @@ function getSlideshow() {
 }
 
 function createSlideshow(data) {
-  return fetch(`${API_URL}/api/slideshow`, {
+  return api.fetchWithAuthorization(`${API_URL}/api/slideshow`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${TOKEN}` // Ajout du token dans les en-têtes
     },
-    body: JSON.stringify(data) // Envoi des données du nouveau slideshow
+    body: JSON.stringify(data)
   })
   .then(handleResponse)
   .catch(handleError);
 }
 
 function updateSlideshow(dataToUpdate) {
-  return fetch(`${API_URL}/api/slideshow`, {
+  return api.fetchWithAuthorization(`${API_URL}/api/slideshow`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${TOKEN}` // Ajout du token dans les en-têtes
     },
-    body: JSON.stringify(dataToUpdate) // Envoi des données à mettre à jour
+    body: JSON.stringify(dataToUpdate)
   })
   .then(handleResponse)
   .catch(handleError);
 }
+
 function deleteSlideshow(slideshowId) {
-  return fetch(`${API_URL}/api/slideshow/${slideshowId}`, {
+  return api.fetchWithAuthorization(`${API_URL}/api/slideshow/${slideshowId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${TOKEN}` // Ajout du token dans les en-têtes
     },
   })
+  .then(handleResponse)
   .catch(handleError);
 }
 

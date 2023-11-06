@@ -22,7 +22,7 @@ function Login() {
     if (e) e.preventDefault();
     const username = "Test";
     try {
-      const user = await userService.signin({ username, password });
+      const user = await userService.signing(username, password);
 
       if (user) {
         console.log("Connecté avec succès", user.token);

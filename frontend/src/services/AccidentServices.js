@@ -1,6 +1,7 @@
 import config from "../config/config.json";
+import { api } from "../helpers/api";
+
 const API_URL = config.API_URL;
-const TOKEN = localStorage.getItem('token'); // Récupère le token du localStorage
 
 export const accidentService = {
   getAccident,
@@ -8,26 +9,26 @@ export const accidentService = {
 };
 
 function getAccident() {
-  return fetch(`${API_URL}/api/accident`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${TOKEN}` // Ajout du token dans les en-têtes
-    },
-  })
+  return api
+    .fetchWithAuthorization(`${API_URL}/api/accident`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
     .then(handleResponse)
     .catch(handleError);
 }
 
 function updateAccident(dataToUpdate) {
-  return fetch(`${API_URL}/api/accident`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${TOKEN}` // Ajout du token dans les en-têtes
-    },
-    body: JSON.stringify(dataToUpdate) // Envoi des données à mettre à jour
-  })
+  return api
+    .fetchWithAuthorization(`${API_URL}/api/accident`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dataToUpdate),
+    })
     .then(handleResponse)
     .catch(handleError);
 }
