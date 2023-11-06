@@ -43,10 +43,7 @@ exports.uploadFile = async (req, res) => {
         { new: true, useFindAndModify: false }
       );
 
-      res.status(200).send({
-        message: "File Uploaded and added to slideshow",
-        code: 200,
-      });
+      res.status(200).json(media);
     } catch (error) {
       console.log(error);
       res.status(500).send({

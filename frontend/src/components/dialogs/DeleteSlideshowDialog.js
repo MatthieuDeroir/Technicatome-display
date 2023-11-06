@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   Dialog,
   DialogActions,
@@ -12,10 +12,6 @@ import { useTranslation } from 'react-i18next';
 function DeleteSlideshowDialog({ open, onClose, onDelete, slideshowToDelete}) {
   const { t } = useTranslation();
 
-  useEffect(() => {
-    console.log('slideshowToDelete', slideshowToDelete._id);
-  }
-  , [slideshowToDelete]);
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>{t('confirmDeletion')}</DialogTitle>

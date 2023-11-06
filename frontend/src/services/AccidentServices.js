@@ -2,7 +2,6 @@ import config from "../config/config.json";
 import { api } from "../helpers/api";
 
 const API_URL = config.API_URL;
-const TOKEN = JSON.parse(localStorage.getItem('token')); // Récupère le token du localStorage et enlève les guillemets
 
 export const accidentService = {
   getAccident,

@@ -1,27 +1,28 @@
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import { Box, GlobalStyles, Grid } from "@mui/material";
 import { ThemeProvider as MuiThemeProvider } from "@mui/material";
-
 import { darkTheme } from "./themes/darkTheme.ts";
 import { clairTheme } from "./themes/clairTheme.ts";
 import Header from "./components/common/Header";
 import NavBar from "./components/common/NavBar";
 import Login from "./components/login/Login";
-import { useEffect, useState } from "react";
-import { useThemeMode, toggleTheme } from "./context/ThemeModeContext.js";
+import DashBoard from "./components/dashboard/Dashboard";
+import { useState } from "react";
+import { useThemeMode } from "./context/ThemeModeContext";
 import "./styles/Global.css";
-import DashBoard from "./components/dashboard/Dashboard.js";
+import Settings from "./components/settings/Settings";
 
 function App() {
-  const [token, setToken] = useState(null);
-  const { themeMode, toggleTheme } = useThemeMode();
+  const [token, setToken] = useState(localStorage.getItem("token"));
+  const { themeMode } = useThemeMode();
 
   const theme = themeMode === "dark" ? darkTheme : clairTheme;
 
-  useEffect(() => {
-    toggleTheme();
-    setToken(localStorage.getItem("token"));
-    console.log("theme", theme);
-  }, []);
 
   return (
     <MuiThemeProvider theme={theme}>
@@ -32,22 +33,32 @@ function App() {
           },
         }}
       />
-      <Header themeMode={themeMode} />
-      <Box className="mainContainer">
-        {token ? (
-          <>
-            <Grid container className="gridComponentLittle">
-              <DashBoard />
+      <Router>
+        <Header themeMode={themeMode} />
+        <Box className="mainContainer">
+          {token ? (
+            <>
+              <Routes>
+                <Route path="*" element={<Navigate to="/dashboard" />} />
+                <Route path="/dashboard" element={<DashBoard />} />
+                <Route path="/settings" element={<Settings />} />
+              </Routes>
+            </>
+          ) : (
+            <Grid container className="loginContainer">
+              <Routes>
+                <Route path="*" element={<Navigate to="/login" />} />
+                <Route path="login" element={<Login />} />
+              </Routes>
             </Grid>
-          </>
-        ) : (
-          <Grid container className="gridComponentLittle">
-            <Login />
-          </Grid>
-        )}
-       
-      </Box>
-      <NavBar />
+          )}
+        </Box>
+        {token ? (
+          <Box>
+            <NavBar />
+          </Box>
+        ) : null}
+      </Router>
     </MuiThemeProvider>
   );
 }

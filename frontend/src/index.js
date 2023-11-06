@@ -7,11 +7,10 @@ import { CustomThemeProvider } from './context/ThemeModeContext';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
+ 
     <CustomThemeProvider>
       <I18nextProvider i18n={i18n}>
         <App />
       </I18nextProvider>
     </CustomThemeProvider>
-  </React.StrictMode>
 );

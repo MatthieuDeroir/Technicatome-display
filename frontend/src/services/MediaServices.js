@@ -12,7 +12,6 @@ function uploadMedia(file, slideshowId) {
     const formData = new FormData();
     formData.append('file', file); // 'file' est le nom du champ attendu côté serveur
     formData.append('slideshowId', slideshowId); // 'slideshowId' est le nom du champ attendu côté serveur
-    console.log("formData", slideshowId);
 
     return fetch(`${API_URL}/api/media/upload`, {
         method: "POST",

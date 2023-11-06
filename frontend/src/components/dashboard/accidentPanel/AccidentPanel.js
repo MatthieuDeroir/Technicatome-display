@@ -30,14 +30,13 @@ function AccidentPanel() {
   };
 
   const handleSubmit = () => {
-    console.log(accidentData);
     accidentService.updateAccident(accidentData).then((data) => {
-      console.log(data);
+
     });
   };
   useEffect(() => {
     accidentService.getAccident().then((data) => {
-      console.log(data);
+
       const accidentData = data[0];
       setAccidentData({
         numberOfAccidentsSinceStartOfTheYear: accidentData.numberOfAccidentsSinceStartOfTheYear,

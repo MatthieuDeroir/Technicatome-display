@@ -17,6 +17,10 @@ router
   .route("/:id")
   .get(authMiddleware.protect, slideshowController.getSlideshow)
   .put(authMiddleware.protect, slideshowController.updateSlideshow)
-  .delete(authMiddleware.protect, slideshowController.deleteSlideshow);
+  .delete(authMiddleware.protect, slideshowController.deleteSlideshow)
+  .patch(authMiddleware.protect, slideshowController.updateMediaOrder);
+ 
+
+router.route("/:id/:mediaId").patch(authMiddleware.protect, slideshowController.updateSlideshowMedia).delete(authMiddleware.protect, slideshowController.deleteMediaFromSlideshow);
 
 module.exports = router;

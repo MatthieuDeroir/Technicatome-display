@@ -21,7 +21,7 @@ function signing(username, password) {
   .then(user => {
     console.log("user", user);
     // Sauvegardez le token dans le localStorage ou gérez l'utilisateur comme vous le souhaitez ici.
-    localStorage.setItem("token", user.accessToken);
+    localStorage.setItem("token", JSON.stringify(user.accessToken));
     return user;
   })
   .catch(error => {

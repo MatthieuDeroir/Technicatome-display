@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cron = require('node-cron');
-const cors = require('cors'); // N'oubliez pas d'importer cors ici
+const cors = require('cors');
 require('dotenv').config();
 
 const { addDayWithoutAccident, initializeAccident } = require('./controllers/accidentController');

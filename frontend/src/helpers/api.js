@@ -1,6 +1,6 @@
 class Api {
   async fetchWithAuthorization(url, options) {
-    const accessToken = localStorage.getItem("token");
+    const accessToken = JSON.parse(localStorage.getItem('token'));
     const headers = new Headers(options.headers || {});
 
     if (accessToken) {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 
 import {
   Box,
@@ -64,8 +64,8 @@ function Settings() {
   const percentage = (usedSize / totalSize) * 100;
 
   return (
-    <>
-      <Grid item xs={12}>
+    <Grid container spacing={2}>
+      <Grid item xs={12} sm={12}>
         <Paper className="mainPaperPage">
           <Stack className="herderTitlePage">
             <Box className="headerLeft">
@@ -131,7 +131,7 @@ function Settings() {
                     </Stack>
                     <Switch checked={themeMode} color="secondary" />
                   </Stack>
-                  {/* <Stack
+                  <Stack
                     onClick={toggleModal}
                     direction="row"
                     alignItems="center"
@@ -151,7 +151,7 @@ function Settings() {
                         color={percentage > 80 ? "error" : "secondary"}
                       />
                     </Box>
-                  </Stack> */}
+                  </Stack>
                   <Stack direction="row" alignItems="center" spacing={3}>
                     <IconButton disabled>
                       <BugReportIcon sx={{ color: "text.secondary" }} />
@@ -185,7 +185,7 @@ function Settings() {
                       0123456789
                     </Typography>
                   </Stack>
-               
+
                   {/* <Typography variant="h6" sx={{ color: "text.secondary" }}>
                     {t("account")}
                   </Typography> */}
@@ -234,7 +234,7 @@ function Settings() {
           </Box>
         </Paper>
       </Grid>
-    </>
+    </Grid>
   );
 }
 

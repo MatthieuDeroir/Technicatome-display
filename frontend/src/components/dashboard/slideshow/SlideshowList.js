@@ -24,12 +24,11 @@ function SlideshowList(props) {
   const [addDialogOpen, setAddDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [slideshowToDelete, setSlideshowToDelete] = useState({});
-  useEffect(() => {console.log("test02", props.slideshows);}, []);
 
   async function AddSlideshow(name) {
     const data = { name: name };
     await slideshowService.createSlideshow(data).then((data) => {
-      console.log("data", data);
+
       props.setSlideshows([...props.slideshows, data.data.slideshow]);
       closeDialog();
     });

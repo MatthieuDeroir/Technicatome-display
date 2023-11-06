@@ -6,8 +6,10 @@ const API_URL = config.API_URL;
 export const slideshowService = {
   getSlideshow,
   createSlideshow,
-  updateSlideshow,
+  updateSlideshowMedia,
   deleteSlideshow,
+  deleteMedia,
+  updateMediaOrder,
 };
 
 function getSlideshow() {
@@ -33,16 +35,30 @@ function createSlideshow(data) {
   .catch(handleError);
 }
 
-function updateSlideshow(dataToUpdate) {
-  return api.fetchWithAuthorization(`${API_URL}/api/slideshow`, {
-    method: "PUT",
+function updateMediaOrder(slideshowId, updatedOrder) {
+  console.log("updateMediaOrder", slideshowId, updatedOrder);
+  return api.fetchWithAuthorization(`${API_URL}/api/slideshow/${slideshowId}`, {
+    method: 'PATCH',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify(dataToUpdate)
+    body: JSON.stringify(updatedOrder),
   })
-  .then(handleResponse)
-  .catch(handleError);
+  .then(response => response.json())
+  .catch(error => console.error('Erreur lors de la mise à jour de l\'ordre', error));
+}
+
+function updateSlideshowMedia(slideshowId, mediaId, newDuration) {
+  console.log("updateSlideshowMedia", slideshowId, mediaId, newDuration);
+  return api.fetchWithAuthorization(`${API_URL}/api/slideshow/${slideshowId}/${mediaId}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ duration: newDuration }),
+  })
+  .then(response => response.json())
+  .catch(error => console.error('Erreur lors de la mise à jour du média', error));
 }
 
 function deleteSlideshow(slideshowId) {
@@ -61,6 +77,17 @@ function handleResponse(response) {
     throw new Error("La réponse du réseau n'était pas correcte");
   }
   return response.json();
+}
+
+function deleteMedia(slideshowId , fileId) {
+  return api.fetchWithAuthorization(`${API_URL}/api/slideshow/${slideshowId}/${fileId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+  .then(handleResponse)
+  .catch(handleError);
 }
 
 function handleError(error) {
