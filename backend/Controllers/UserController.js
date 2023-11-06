@@ -6,7 +6,7 @@ exports.signing = async (req, res) => {
     console.log("signing",req.body);
     try {
         const { username, password } = req.body;
-
+        
         const user = await User.findOne({ username }).select('+password');
         if (!user || !(await bcrypt.compare(password, user.password))) {
             return res.status(401).json({ message: 'Invalid credentials' });

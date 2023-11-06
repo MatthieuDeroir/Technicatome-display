@@ -1,15 +1,21 @@
 meta {
-  name: get-slideshow
+  name: post-slideshow
   type: http
   seq: 3
 }
 
-get {
+post {
   url: http://localhost:4000/api/slideshow
-  body: none
+  body: json
   auth: bearer
 }
 
 auth:bearer {
   token: {{token}}
+}
+
+body:json {
+  {
+    "name": "dsqdsqdq"
+  }
 }
