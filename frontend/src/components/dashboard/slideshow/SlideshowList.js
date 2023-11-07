@@ -40,7 +40,6 @@ function SlideshowList(props) {
   }
 
   async function deleteSlideshow(eventToDelete) {
-    console.log("eventToDelete", eventToDelete);
     await slideshowService.deleteSlideshow(eventToDelete).then((data) => {
       props.setSlideshows(
         props.slideshows.filter((slideshow) => slideshow._id !== eventToDelete)

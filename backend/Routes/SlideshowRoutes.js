@@ -19,6 +19,8 @@ router
   .put(authMiddleware.protect, slideshowController.updateSlideshow)
   .delete(authMiddleware.protect, slideshowController.deleteSlideshow)
   .patch(authMiddleware.protect, slideshowController.updateMediaOrder);
+
+  router.route("/addPanneau/:id").post(authMiddleware.protect, slideshowController.addSimpleMediaToSlideshow);
  
 
 router.route("/:id/:mediaId").patch(authMiddleware.protect, slideshowController.updateSlideshowMedia).delete(authMiddleware.protect, slideshowController.deleteMediaFromSlideshow);

@@ -13,16 +13,16 @@ exports.getVeille = async (req, res) => {
 
 exports.updateVeille = async (req, res) => {
   try {
-    console.log("updateVeille");
+    console.log("updateVeille",req.body);
     const veilleUpdated = await VeilleSchema.findOneAndUpdate(
-      {},
+      { _id: req.body._id},
       req.body,
-      { new: true } // Cette option fait en sorte que la méthode renvoie le document modifié
+      { new: true }
     );
     if (!veilleUpdated) {
       res.status(404).send("Aucune veille trouvée avec cet ID");
     } else {
-      res.json(veilleUpdated);
+      res.status(200).send(veilleUpdated);
     }
   } catch (error) {
     console.error(error);

@@ -9,7 +9,7 @@ router
   .get(authMiddleware.protect, veilleController.getVeille);
 
 router
-  .route("/update-days/")
+  .route("/update-days")
 
   .put(authMiddleware.protect, veilleController.updateVeille);
 

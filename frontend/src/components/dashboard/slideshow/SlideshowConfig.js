@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Box,
   Grid,
   IconButton,
+  Menu,
+  MenuItem,
   Paper,
   Stack,
   Table,
@@ -24,26 +26,66 @@ import { slideshowService } from "../../../services/SlideshowService";
 import { ReactSortable } from "react-sortablejs";
 
 function SlideshowConfig(props) {
-  async function uploadMedia(event) {
-    event.preventDefault();
-    const id = props.slideshow._id;
-    await mediaService
-      .uploadMedia(event.target.files[0], id)
-      .then((data) => {
-        console.log("Uploaded data", data);
-        const newMedia = data;
-        const updatedMediaList = [...props.slideshow.media, newMedia];
-        console.log("updatedMediaList", updatedMediaList);
-        props.setSlideshow({
-          ...props.slideshow,
-          media: updatedMediaList,
-        });
-      })
-      .catch((error) => {
-        console.error("Upload error", error);
-      });
-  }
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleOpenMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
+  const handleUpload = () => {
+    document.getElementById("inputFile").click();
+    handleCloseMenu();
+  };
 
+  async function uploadMedia(event) {
+    if (event.target.files[0] !== undefined) {
+      if (event.target.files[0].type === "video/mp4") {
+        event.preventDefault();
+        const id = props.slideshow._id;
+        await mediaService
+          .uploadMedia(event.target.files[0], id)
+          .then((data) => {
+            console.log("Uploaded data", data);
+            var newMedia = data;
+            newMedia.type = "video";
+            const updatedMediaList = [...props.slideshow.media, newMedia];
+            console.log("updatedMediaList", updatedMediaList);
+            props.setSlideshow({
+              ...props.slideshow,
+              media: updatedMediaList,
+            });
+          })
+          .catch((error) => {
+            console.error("Upload error", error);
+          });
+      } else if (
+        event.target.files[0].type === "image/png" ||
+        event.target.files[0].type === "image/jpeg" ||
+        event.target.files[0].type === "image/jpg"
+      ) {
+        event.preventDefault();
+        const id = props.slideshow._id;
+        await mediaService
+          .uploadMedia(event.target.files[0], id)
+          .then((data) => {
+            console.log("Uploaded data", data);
+            var newMedia = data;
+            newMedia.type = "image";
+            const updatedMediaList = [...props.slideshow.media, newMedia];
+            console.log("updatedMediaList", updatedMediaList);
+            props.setSlideshow({
+              ...props.slideshow,
+              media: updatedMediaList,
+            });
+          })
+          .catch((error) => {
+            console.error("Upload error", error);
+          });
+      }
+    }
+  }
   function handleDurationChange(event, mediaId) {
     const newDuration = event.target.value;
 
@@ -61,18 +103,6 @@ function SlideshowConfig(props) {
     });
     props.setSlideshow({ ...props.slideshow, media: updatedMediaList });
   }
-
-  function deleteMedia(mediaToDelete) {
-    slideshowService
-      .deleteMedia(props.slideshow._id, mediaToDelete._id)
-      .then(() => {
-        const updatedMediaList = props.slideshow.media.filter(
-          (media) => media._id !== mediaToDelete._id
-        );
-        props.setSlideshow({ ...props.slideshow, media: updatedMediaList });
-      });
-  }
-
   function handleOrderChange(newOrder) {
     console.log(newOrder);
     props.setSlideshow({ ...props.slideshow, media: newOrder });
@@ -91,6 +121,31 @@ function SlideshowConfig(props) {
       .catch((error) => {
         console.error("Error updating order", error);
       });
+  }
+  function deleteMedia(mediaToDelete) {
+    slideshowService
+      .deleteMedia(props.slideshow._id, mediaToDelete._id)
+      .then(() => {
+        const updatedMediaList = props.slideshow.media.filter(
+          (media) => media._id !== mediaToDelete._id
+        );
+        props.setSlideshow({ ...props.slideshow, media: updatedMediaList });
+      });
+  }
+
+  function addPanneau() {
+    slideshowService.addPanneau(props.slideshow._id).then((data) => {
+      console.log("addPanneau", data);
+      props.setSlideshow(data);
+      console.log("data addPanneau", data.data.newMedia);
+      const updatedMediaList = [...props.slideshow.media, data.data.newMedia];
+      console.log("updatedMediaList", updatedMediaList);
+      props.setSlideshow({
+        ...props.slideshow,
+        media: updatedMediaList,
+      });
+    });
+    handleCloseMenu();
   }
 
   return (
@@ -119,11 +174,20 @@ function SlideshowConfig(props) {
               </Typography>
             </Box>
             <Box className="headerRight">
-              <IconButton
+              {/*  <IconButton
                 className="headerButton"
                 onClick={() => {
                   document.getElementById("inputFile").click();
                 }}
+              >
+                <AddIcon sx={{ color: "secondary.main" }} />
+              </IconButton> */}
+              <IconButton
+                aria-controls={open ? "basic-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? "true" : undefined}
+                onClick={handleOpenMenu}
+                className="headerButton"
               >
                 <AddIcon sx={{ color: "secondary.main" }} />
               </IconButton>
@@ -133,6 +197,24 @@ function SlideshowConfig(props) {
                 style={{ display: "none" }}
                 onChange={uploadMedia}
               />
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleCloseMenu}
+                MenuListProps={{
+                  "aria-labelledby": "basic-button",
+                }}
+              >
+                <MenuItem
+                  onClick={() => {
+                    handleUpload();
+                  }}
+                >
+                  Upload
+                </MenuItem>
+                <MenuItem onClick={addPanneau}>Panneau</MenuItem>
+              </Menu>
             </Box>
           </Stack>
           <Box
@@ -154,24 +236,42 @@ function SlideshowConfig(props) {
                         <TableCell
                           sx={{ borderBottom: 0, p: 0, textAlign: "center" }}
                         >
-                          <Box
-                            sx={{
-                              minHeight: "calc(15vh)",
-                              minWidth: "calc(15vh)",
-                              maxWidth: "calc(15vh)",
-                              maxHeight: "calc(15vh)",
-                            }}
-                            src={media.path}
-                            component="img"
-                            key={index}
-                          />
+                          {media.type.split("/")[0] === "video" ? (
+                            <Box
+                              component="video"
+                              sx={{
+                                minHeight: "calc(15vh)",
+                                minWidth: "calc(15vh)",
+                                maxWidth: "calc(15vh)",
+                                maxHeight: "calc(15vh)",
+                              }}
+                              alt={media.originalFilename}
+                              src={media.path}
+                            />
+                          ) : media.type.split("/")[0] === "image" ? (
+                            <Box
+                              component="img"
+                              sx={{
+                                minHeight: "calc(15vh)",
+                                minWidth: "calc(15vh)",
+                                maxWidth: "calc(15vh)",
+                                maxHeight: "calc(15vh)",
+                              }}
+                              alt={media.originalFilename}
+                              src={media.path}
+                            />
+                          ) : (
+                            "Panneau"
+                          )}
                         </TableCell>
+
                         <TableCell p={0} align="right">
                           <TextField
                             value={media.duration}
                             onChange={(e) => handleDurationChange(e, media._id)}
                             size="small"
                             type="number"
+                            disabled={media.type.split("/")[0] == "video"}
                             inputProps={{ min: 0, max: 999 }}
                             style={{ width: "90px" }}
                           />

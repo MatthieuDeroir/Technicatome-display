@@ -10,6 +10,7 @@ export const slideshowService = {
   deleteSlideshow,
   deleteMedia,
   updateMediaOrder,
+  addPanneau
 };
 
 function getSlideshow() {
@@ -30,6 +31,17 @@ function createSlideshow(data) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data)
+  })
+  .then(handleResponse)
+  .catch(handleError);
+}
+
+function addPanneau(id) {
+  return api.fetchWithAuthorization(`${API_URL}/api/slideshow/addPanneau/${id}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
   })
   .then(handleResponse)
   .catch(handleError);

@@ -1,6 +1,7 @@
 const fs = require("fs");
 const crypto = require("crypto");
 const path = require("path");
+const ffmpeg = require("fluent-ffmpeg");
 
 const Media = require("../Models/MediaModel");
 const Slideshow = require("../Models/SlideshowModel");
@@ -8,51 +9,83 @@ const Slideshow = require("../Models/SlideshowModel");
 exports.uploadFile = async (req, res) => {
   const slideshowId = req.body.slideshowId;
   const originalFilename = req.file.originalname;
-  const hashedFilename = crypto
-    .createHash("sha256")
-    .update(originalFilename)
-    .digest("hex");
+  const hashedFilename = crypto.createHash("sha256").update(originalFilename).digest("hex");
   const format = req.file.mimetype.split("/")[1];
-  const duration = 10;
-  const order = 1;
   const newpath = path.join(__dirname, "../../frontend/public/media/");
   const oldPath = req.file.path;
-
+  const type = req.file.mimetype;
   const newPathWithFileName = path.join(newpath, `${hashedFilename}.${format}`);
 
   fs.rename(oldPath, newPathWithFileName, async (err) => {
     if (err) {
       console.log(err);
-      return res.status(500).send({ message: "File upload failed", code: 500 });
+      return res.status(500).send({ message: "Le téléchargement du fichier a échoué", code: 500 });
     }
 
-    const media = new Media({
-      originalFilename: originalFilename,
-      hashedFilename: hashedFilename,
-      user: req.body.user,
-      format: format,
-      path: `/media/${hashedFilename}.${format}`,
-      duration: duration,
-      order: order,
-    });
+    // Si le fichier est une vidéo, obtenez sa durée.
+    if (type.startsWith('video/')) {
+      ffmpeg.ffprobe(newPathWithFileName, async function (err, metadata) {
+        if (err) {
+          console.error(err);
+          return res.status(500).send({ message: "Échec lors de la récupération de la durée de la vidéo", code: 500 });
+        }
 
-    try {
-      await Slideshow.findByIdAndUpdate(
-        slideshowId,
-        { $push: { media: media } },
-        { new: true, useFindAndModify: false }
-      );
+        const videoDuration = metadata.format.duration;
 
-      res.status(200).json(media);
-    } catch (error) {
-      console.log(error);
-      res.status(500).send({
-        message: "Erreur lors de l'ajout du média au slideshow",
-        code: 500,
+        const media = new Media({
+          originalFilename: originalFilename,
+          hashedFilename: hashedFilename,
+          user: req.body.user,
+          format: format,
+          path: `/media/${hashedFilename}.${format}`,
+          duration: videoDuration,
+          type: type,
+        });
+
+        try {
+          await saveMediaAndUpdateSlideshow(media, slideshowId, res);
+        } catch (error) {
+          handleError(error, res);
+        }
       });
+    } else {
+      // Pour les images et autres types de fichiers, mettez une durée par défaut ou gérez comme nécessaire.
+      const media = new Media({
+        originalFilename: originalFilename,
+        hashedFilename: hashedFilename,
+        user: req.body.user,
+        format: format,
+        path: `/media/${hashedFilename}.${format}`,
+        duration: 10,
+        type: type,
+      });
+
+      try {
+        await saveMediaAndUpdateSlideshow(media, slideshowId, res);
+      } catch (error) {
+        handleError(error, res);
+      }
     }
   });
 };
+
+async function saveMediaAndUpdateSlideshow(media, slideshowId, res) {
+  await Slideshow.findByIdAndUpdate(
+    slideshowId,
+    { $push: { media: media } },
+    { new: true, useFindAndModify: false }
+  );
+
+  res.status(200).json(media);
+}
+
+function handleError(error, res) {
+  console.log(error);
+  res.status(500).send({
+    message: "Erreur lors de l'ajout du média au slideshow",
+    code: 500,
+  });
+}
 
 exports.deleteFile = (req, res) => {
   const directoryPath = path.join(

@@ -15,7 +15,7 @@ import DashBoard from "./components/dashboard/Dashboard";
 import { useState } from "react";
 import { useThemeMode } from "./context/ThemeModeContext";
 import "./styles/Global.css";
-import Settings from "./components/settings/Settings";
+import Settings from "./components/settings/settings.js";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
