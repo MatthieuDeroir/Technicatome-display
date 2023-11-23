@@ -13,8 +13,17 @@ const AccidentSchema = new moongose.Schema({
         type: Number,
         required: true
     },
+    resetOnNewYear:{
+        type: Boolean,
+        default: true,
+        required: true
+    },
     scrollingText: {
         type: String
+    },
+    lastUpdated: {
+        type: Date,
+        default: Date.now
     }
 });
 

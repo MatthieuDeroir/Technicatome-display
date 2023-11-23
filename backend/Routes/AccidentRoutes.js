@@ -14,16 +14,19 @@ const {
     addDayWithoutAccident,
     updateAccident,
     updateDaysWithoutAccident,
-    updateRecordDaysWithoutAccident,
-    updateNumberOfAccidentsSinceStartOfTheYear,
-    updateScrollingText
+    updateResetOnNewYear
 } = require('../controllers/accidentController');
 
 const authMiddleware = require('../Middlewares/authMiddleware');
 
+
 router.route('/')
-    .get(authMiddleware.protect, getAccident)
+    .get(getAccident)
     .put(authMiddleware.protect, updateAccident);
+
+router.route('/update-reset')
+    .put(authMiddleware.protect, updateResetOnNewYear);
+
 
 router.route('/add-day')
     .post(authMiddleware.protect, addDayWithoutAccident); // Peut-être que c'est mieux d'utiliser un cron job server-side pour cela
@@ -31,13 +34,5 @@ router.route('/add-day')
 router.route('/update-days')
     .put(authMiddleware.protect, updateDaysWithoutAccident);
 
-router.route('/update-record')
-    .put(authMiddleware.protect, updateRecordDaysWithoutAccident);
-
-router.route('/update-number')
-    .put(authMiddleware.protect, updateNumberOfAccidentsSinceStartOfTheYear);
-
-router.route('/update-text')
-    .put(authMiddleware.protect, updateScrollingText);
 
 module.exports = router;

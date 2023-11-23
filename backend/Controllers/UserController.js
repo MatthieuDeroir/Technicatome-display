@@ -22,10 +22,20 @@ exports.signin = async (req, res) => {
 
 exports.signup = async (req, res) => {
     try {
-        const { username, password, role } = req.body;
+        const { username, password } = req.body;
 
-        const user = await User.create({ username, password, role });
+        // Vérifie si l'utilisateur existe déjà
+        const existingUser = await User.findOne({ username });
+        if(existingUser) {
+            return res.status(409).json({ message: 'Username is already taken' });
+        }
 
+        // Hash le mot de passe avant de le stocker
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        // Crée un nouvel utilisateur et renvoie un token
+        const user = await User.create({ username, password: hashedPassword });
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
 
         res.status(201).json({ token });

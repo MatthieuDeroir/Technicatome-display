@@ -2,8 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cron = require('node-cron');
 require('dotenv').config();
+const cors = require('cors');
 
-const { addDayWithoutAccident, initializeAccident } = require('./controllers/accidentController');
+const { addDayWithoutAccident, initializeAccident, updateDaysWithoutAccident } = require('./controllers/accidentController');
 
 const accidentRoutes = require('./Routes/AccidentRoutes');
 const userRoutes = require('./Routes/UserRoutes');
@@ -18,6 +19,14 @@ mongoose.connect('mongodb://localhost/AccTechniDB', { useNewUrlParser: true, use
 // Middleware pour parser le JSON
 app.use(express.json());
 
+app.use(cors());
+
+// Lorsque le serveur démarre, mettez à jour le compteur en fonction du temps écoulé
+try {
+    updateDaysWithoutAccident();
+} catch (error) {
+    console.error('Error while updating days without accident', error);
+}
 // Tâche planifiée pour ajouter un jour sans accident à minuit tous les jours
 cron.schedule('0 0 * * *', async () => {
     console.log('Running a job at 12:00 at midnight every day');
@@ -28,6 +37,7 @@ cron.schedule('0 0 * * *', async () => {
         console.error('Error while adding a day without accident', error);
     }
 });
+
 try {
     initializeAccident();
 } catch (error) {
@@ -45,5 +55,5 @@ app.use((err, req, res, next) => {
 });
 
 // Démarrer le serveur
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
