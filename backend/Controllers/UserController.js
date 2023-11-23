@@ -2,7 +2,8 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('../models/userModel');
 
-exports.signin = async (req, res) => {
+exports.signing = async (req, res) => {
+    console.log("signing",req.body);
     try {
         const { username, password } = req.body;
 
@@ -15,14 +16,18 @@ exports.signin = async (req, res) => {
 
         res.status(200).json({ token });
     } catch (error) {
+        console.log("error",error);
         res.status(500).json({ message: error.message });
     }
 };
 
 
 exports.signup = async (req, res) => {
+
     try {
         const { username, password } = req.body;
+        const { username, password, role } = req.body;
+
 
         // Vérifie si l'utilisateur existe déjà
         const existingUser = await User.findOne({ username });
