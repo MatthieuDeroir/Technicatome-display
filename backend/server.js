@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const cron = require('node-cron');
 const cors = require('cors');
 require('dotenv').config();
-const cors = require('cors');
 
 const { addDayWithoutAccident, initializeAccident, updateDaysWithoutAccident } = require('./controllers/accidentController');
 
@@ -11,7 +10,8 @@ const accidentRoutes = require('./Routes/AccidentRoutes');
 const userRoutes = require('./Routes/UserRoutes');
 const veilleRoutes = require('./Routes/VeilleRoutes');
 const slideshowRoutes = require('./Routes/SlideshowRoutes');
-const mediaRoute = require('./Routes/MediaRoute');
+const mediaRoute = require('./Routes/MediaRoutes');
+const dataRoutes = require('./Routes/DataRoutes');
 
 const app = express();
 
@@ -57,7 +57,7 @@ app.use('/api/accident', accidentRoutes);
 app.use('/api/veille', veilleRoutes);
 app.use('/api/slideshow', slideshowRoutes);
 app.use('/api/media', mediaRoute);
-
+app.use('/api/data', dataRoutes);
 
 // Middleware pour gérer les erreurs
 app.use((err, req, res, next) => {

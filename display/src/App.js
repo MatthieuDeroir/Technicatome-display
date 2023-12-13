@@ -25,7 +25,7 @@ function App() {
 
     setInterval(() => {
         fetchData();
-    }, 60000);
+    }, 5000);
   }, []);
 
   return (
