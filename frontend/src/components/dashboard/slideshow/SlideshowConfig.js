@@ -271,9 +271,9 @@ function SlideshowConfig(props) {
                               alt={media.originalFilename}
                               src={media.path}
                             />
-                          ) : (
+                          ) : media.type.split("/")[0] === "Panneau" ?(
                             "Panneau"
-                          )}
+                          ): ("Donnée")}
                         </TableCell>
 
                         <TableCell sx={{ width: "40%" }} p={0}>
