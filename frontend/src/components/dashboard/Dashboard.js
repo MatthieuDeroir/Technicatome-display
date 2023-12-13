@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import AccidentPanel from "./accidentPanel/AccidentPanel";
 import Preview from "./preview/Preview";
 import SlideshowList from "./slideshow/SlideshowList";
-import { use } from "i18next";
 import SlideshowConfig from "./slideshow/SlideshowConfig";
 import { slideshowService } from "../../services/SlideshowService";
 
@@ -15,7 +14,6 @@ function Dashboard() {
   useEffect(() => {
     async function fetchData() {
       try {
-        
         getSlideshow();
       } catch (error) {
         console.error("Erreur lors de la récupération du slideshow:", error);
@@ -25,15 +23,12 @@ function Dashboard() {
   }, [slideshow]);
 
   async function getSlideshow() {
-    console.log("getSlideshow");
     await slideshowService.getSlideshow().then((data) => {
-      console.log("data", data);
       setSlideshows(data.data.slideshows);
     });
   }
 
   async function setCurrentSlideshow(currentSlideshow) {
-    console.log("setCurrentSlideshow", currentSlideshow);
     setSlideshow(currentSlideshow);
   }
 

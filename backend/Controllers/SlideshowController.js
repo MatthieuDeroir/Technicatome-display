@@ -19,6 +19,48 @@ exports.getAllSlideshows = async (req, res) => {
   }
 };
 
+ 
+exports.addDataMediaToSlideshow = async (req, res) => {
+  const slideshowId = req.params.id;
+  console.log("addSimpleMediaToSlideshow", req.body);
+  console.log("addSimpleMediaToSlideshow", req.params.id);
+  //ajouter media vide dans le tableau media
+
+  try {
+    const slideshow = await Slideshow.findById(slideshowId);
+    if (!slideshow) {
+      return res.status(404).json({
+        status: "fail",
+        message: "Slideshow non trouvé",
+      });
+    }
+
+    const media = new Media({
+      // Supposons que votre modèle a un titre et un chemin par exemple
+      originalFilename: "Data",
+      duration: 10,
+      type: "Data",
+    });
+
+    slideshow.media.push(media);
+    const updatedSlideshow = await slideshow.save();
+    res.status(200).json({
+      status: "success",
+      data: {
+        newMedia: media,
+      },
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      status: "fail",
+      message:
+        err.message ||
+        "Une erreur est survenue lors de la mise à jour du slideshow",
+    });
+  }
+};
+
 exports.addSimpleMediaToSlideshow = async (req, res) => {
   const slideshowId = req.params.id;
   console.log("addSimpleMediaToSlideshow", req.body);
@@ -186,7 +228,7 @@ exports.deleteSlideshow = async (req, res) => {
 
     // Supprimer les fichiers médias associés du système de fichiers
     const mediaDeletions = slideshow.media.map(media => {
-      const mediaPath = "../../Technicatome-display/frontend/public/" + media.path;
+      const mediaPath = "../../frontend/build/media/" + media.path;
       return fs.promises.unlink(mediaPath).catch(err => {
         console.error(err);
         // Si le fichier n'existe pas, ce n'est pas grave, continuer la suppression
@@ -249,6 +291,7 @@ exports.updateSlideshowMedia = async (req, res) => {
 };
 
 exports.deleteMediaFromSlideshow = async (req, res) => {
+
   try {
     const slideshow = await Slideshow.findById(req.params.id);
     if (!slideshow) {
@@ -258,14 +301,19 @@ exports.deleteMediaFromSlideshow = async (req, res) => {
       });
     }
     const media = slideshow.media.id(req.params.mediaId);
+    
     if (!media) {
       return res.status(404).json({
         status: "fail",
         message: "Média non trouvé",
       });
     }
+
+    console.log("deleteMediaFromSlideshow01", media);
+    console.log(`../../../daudruy/frontend/build${media.path}`);
+    
     fs.unlink(
-      "../../Technicatome-display/frontend/public/" + media.path,
+      "../../daudruy/frontend/build" + media.path,
       async (err) => {
         if (err) {
           console.error(err);

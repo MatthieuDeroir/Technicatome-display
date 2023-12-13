@@ -7,7 +7,7 @@ import {
   Typography,
   TextField,
 } from "@mui/material";
-import EditCalendarIcon from '@mui/icons-material/EditCalendar';
+import EditCalendarIcon from "@mui/icons-material/EditCalendar";
 import SaveIcon from "@mui/icons-material/Save";
 import React, { useEffect, useState } from "react";
 import { t } from "i18next";
@@ -30,16 +30,33 @@ function AccidentPanel() {
   };
 
   const handleSubmit = () => {
-    accidentService.updateAccident(accidentData).then((data) => {
-
-    });
+    if (
+      accidentData.daysWithoutAccident > accidentData.recordDaysWithoutAccident
+    ) {
+      accidentService.updateAccident(accidentData).then((data) => {
+        setAccidentData({
+          numberOfAccidentsSinceStartOfTheYear:
+            data.numberOfAccidentsSinceStartOfTheYear,
+          daysWithoutAccident: data.daysWithoutAccident,
+          recordDaysWithoutAccident: data.daysWithoutAccident,
+        });
+      });
+    } else
+      accidentService.updateAccident(accidentData).then((data) => {
+        setAccidentData({
+          numberOfAccidentsSinceStartOfTheYear:
+            data.numberOfAccidentsSinceStartOfTheYear,
+          daysWithoutAccident: data.daysWithoutAccident,
+          recordDaysWithoutAccident: data.recordDaysWithoutAccident,
+        });
+      });
   };
   useEffect(() => {
     accidentService.getAccident().then((data) => {
-
       const accidentData = data[0];
       setAccidentData({
-        numberOfAccidentsSinceStartOfTheYear: accidentData.numberOfAccidentsSinceStartOfTheYear,
+        numberOfAccidentsSinceStartOfTheYear:
+          accidentData.numberOfAccidentsSinceStartOfTheYear,
         daysWithoutAccident: accidentData.daysWithoutAccident,
         recordDaysWithoutAccident: accidentData.recordDaysWithoutAccident,
       });

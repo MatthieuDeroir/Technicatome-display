@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -12,17 +13,44 @@ import Header from "./components/common/Header";
 import NavBar from "./components/common/NavBar";
 import Login from "./components/login/Login";
 import DashBoard from "./components/dashboard/Dashboard";
-import { useState } from "react";
 import { useThemeMode } from "./context/ThemeModeContext";
 import "./styles/Global.css";
 import Settings from "./components/settings/settings.js";
+import NotificationNewYearDialog from "./components/dialogs/NotificationNewYearDialogs.js";
+import { accidentService } from "./services/AccidentServices.js";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const { themeMode } = useThemeMode();
+  const [open, setOpen] = useState(false);
 
+
+  useEffect(() => {
+    setToken(localStorage.getItem("token"));
+  }, [token]);
+
+  useEffect(() => {
+    accidentService.getAccident().then((data) => {
+      console.log("data", data[0].resetOnNewYear);
+      setOpen(data[0].resetOnNewYear);
+    });
+
+  }, []);
   const theme = themeMode === "dark" ? darkTheme : clairTheme;
 
+  const updateToken = (newToken) => {
+    setToken(newToken);
+    localStorage.setItem("token", newToken);
+  };
+
+  function setNotificationNewYear(reset) {
+    accidentService.resetOneNewYear(reset).then((data) => {
+      window.location.reload();
+    });
+
+  
+    
+  }
 
   return (
     <MuiThemeProvider theme={theme}>
@@ -48,7 +76,10 @@ function App() {
             <Grid container className="loginContainer">
               <Routes>
                 <Route path="*" element={<Navigate to="/login" />} />
-                <Route path="login" element={<Login />} />
+                <Route
+                  path="login"
+                  element={<Login updateToken={updateToken} />}
+                />
               </Routes>
             </Grid>
           )}
@@ -59,6 +90,10 @@ function App() {
           </Box>
         ) : null}
       </Router>
+      <NotificationNewYearDialog open={ open }
+        onClose={ () => setOpen(false) }
+        onToggle={ setNotificationNewYear }
+        />
     </MuiThemeProvider>
   );
 }

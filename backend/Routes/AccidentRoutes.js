@@ -15,9 +15,9 @@ const {
     updateAccident,
     updateDaysWithoutAccident,
     updateResetOnNewYear
-} = require('../Controllers/AccidentController');
+} = require('../controllers/accidentController');
 
-const authMiddleware = require('../Middlewares/AuthMiddleware');
+const authMiddleware = require('../Middlewares/authMiddleware');
 
 
 router.route('/')

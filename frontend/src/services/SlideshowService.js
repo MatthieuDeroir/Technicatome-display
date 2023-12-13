@@ -1,7 +1,5 @@
-import config from "../config/config.json";
 import { api } from "../helpers/api"; // Assurez-vous que le chemin d'importation est correct.
-
-const API_URL = config.API_URL;
+const API_URL = process.env.REACT_APP_API_URL;
 
 export const slideshowService = {
   getSlideshow,
@@ -10,7 +8,8 @@ export const slideshowService = {
   deleteSlideshow,
   deleteMedia,
   updateMediaOrder,
-  addPanneau
+  addPanneau,
+  addData
 };
 
 function getSlideshow() {
@@ -46,6 +45,18 @@ function addPanneau(id) {
   .then(handleResponse)
   .catch(handleError);
 }
+
+function addData(id) { 
+  return api.fetchWithAuthorization(`${API_URL}/api/slideshow/addData/${id}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+  .then(handleResponse)
+  .catch(handleError);
+}
+
 
 function updateMediaOrder(slideshowId, updatedOrder) {
   console.log("updateMediaOrder", slideshowId, updatedOrder);

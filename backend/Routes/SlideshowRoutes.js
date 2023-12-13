@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const slideshowController = require("../Controllers/SlideshowController");
-const authMiddleware = require("../Middlewares/AuthMiddleware");
+const slideshowController = require("../Controllers/slideshowController");
+const authMiddleware = require("../Middlewares/authMiddleware");
 
 // Route pour obtenir tous les slideshows
 router
   .route("/")
-  .get(authMiddleware.protect, slideshowController.getAllSlideshows)
+  .get(  slideshowController.getAllSlideshows)
   .post(authMiddleware.protect, slideshowController.createSlideshow);
 
 // Route pour créer un nouveau slideshow
@@ -21,6 +21,7 @@ router
   .patch(authMiddleware.protect, slideshowController.updateMediaOrder);
 
   router.route("/addPanneau/:id").post(authMiddleware.protect, slideshowController.addSimpleMediaToSlideshow);
+  router.route("/addData/:id").post(authMiddleware.protect, slideshowController.addDataMediaToSlideshow);
  
 
 router.route("/:id/:mediaId").patch(authMiddleware.protect, slideshowController.updateSlideshowMedia).delete(authMiddleware.protect, slideshowController.deleteMediaFromSlideshow);

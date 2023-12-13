@@ -7,11 +7,16 @@ const Media = require("../Models/MediaModel");
 const Slideshow = require("../Models/SlideshowModel");
 
 exports.uploadFile = async (req, res) => {
+  console.log("test",req.file);
   const slideshowId = req.body.slideshowId;
   const originalFilename = req.file.originalname;
-  const hashedFilename = crypto.createHash("sha256").update(originalFilename).digest("hex");
+  const uniqueValue = Math.random().toString();
+  const hashedFilename = crypto
+    .createHash("sha256")
+    .update(originalFilename + uniqueValue)
+    .digest("hex");
   const format = req.file.mimetype.split("/")[1];
-  const newpath = path.join(__dirname, "../../frontend/public/media/");
+  const newpath = path.join(__dirname, process.env.UPLOAD_PATH);
   const oldPath = req.file.path;
   const type = req.file.mimetype;
   const newPathWithFileName = path.join(newpath, `${hashedFilename}.${format}`);
@@ -19,15 +24,22 @@ exports.uploadFile = async (req, res) => {
   fs.rename(oldPath, newPathWithFileName, async (err) => {
     if (err) {
       console.log(err);
-      return res.status(500).send({ message: "Le téléchargement du fichier a échoué", code: 500 });
+      return res
+        .status(500)
+        .send({ message: "Le téléchargement du fichier a échoué", code: 500 });
     }
 
     // Si le fichier est une vidéo, obtenez sa durée.
-    if (type.startsWith('video/')) {
+    if (type.startsWith("video/")) {
       ffmpeg.ffprobe(newPathWithFileName, async function (err, metadata) {
         if (err) {
           console.error(err);
-          return res.status(500).send({ message: "Échec lors de la récupération de la durée de la vidéo", code: 500 });
+          return res
+            .status(500)
+            .send({
+              message: "Échec lors de la récupération de la durée de la vidéo",
+              code: 500,
+            });
         }
 
         const videoDuration = metadata.format.duration;
@@ -90,7 +102,7 @@ function handleError(error, res) {
 exports.deleteFile = (req, res) => {
   const directoryPath = path.join(
     __dirname,
-    "../../panneau_couchet/public/media/"
+    process.env.UPLOAD_PATH
   );
   const fileName = req.body.fileName;
   const format = req.body.format;

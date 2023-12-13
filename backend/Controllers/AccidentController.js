@@ -22,16 +22,13 @@ exports.addDayWithoutAccident = async (req, res) => {
     }
 
     await accidentInfo.save();
-    res.status(200).json(accidentInfo);
+    console.log("Added a day without accident");
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.log("Error while adding a day without accident", err);
   }
 };
 
 exports.updateAccident = async (req, res) => {
-
-    console.log("updateAccident");
-    console.log(req.body);
   try {
     // update all felds with body
     const accidentInfo = await AccidentSchema.findOne();
@@ -61,7 +58,8 @@ exports.updateDaysWithoutAccident = async (req, res) => {
     await accidentInfo.save();
     res.status(200).json(accidentInfo);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.log("Error while updating days without accident", err);
+   
   }
 };
 
@@ -130,13 +128,30 @@ exports.initializeAccident = async (req, res) => {
     console.error("Error initializing accident document:", error);
   }
 };
+exports.newYear = async (req, res) => {
+  try {
+    const accidentInfo = await AccidentSchema.findOne();
+    if (!accidentInfo) throw new Error("Accident Info not found");
+
+    accidentInfo.resetOnNewYear = !accidentInfo.resetOnNewYear;
+
+    await accidentInfo.save();
+    res.status(200).json(accidentInfo);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}
 
 exports.updateResetOnNewYear = async (req, res) => {
+  console.log("updateResetOnNewYear");
     try {
         const accidentInfo = await AccidentSchema.findOne();
         if (!accidentInfo) throw new Error('Accident Info not found');
 
-        accidentInfo.resetOnNewYear = req.body.resetOnNewYear;
+        accidentInfo.resetOnNewYear = !accidentInfo.resetOnNewYear;
+        if (req.body.resetOnNewYear) {
+            accidentInfo.numberOfAccidentsSinceStartOfTheYear = 0;
+        }
 
         await accidentInfo.save();
         res.status(200).json(accidentInfo);
