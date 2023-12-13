@@ -22,6 +22,7 @@ const slideshowRoutes = require("./Routes/SlideshowRoutes");
 const mediaRoute = require("./Routes/MediaRoute");
 const slideshowStatusRoute = require("./Routes/SlideshowStatutsRoutes");
 const settingsRoutes = require("./Routes/SettingsRoutes");
+const dataRoutes = require("./Routes/DataRoutes");
 const app = express();
 
 // Connecter à MongoDB
@@ -68,6 +69,7 @@ app.use("/api/slideshow", slideshowRoutes);
 app.use("/api/media", mediaRoute);
 app.use("/api/slideshow-status", slideshowStatusRoute);
 app.use("/api/settings", settingsRoutes);
+app.use("/api/data", dataRoutes);
 
 // Middleware pour gérer les erreurs
 app.use((err, req, res, next) => {
