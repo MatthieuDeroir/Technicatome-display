@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const User = require('../models/userModel');
+const User = require('../Models/UserModel');
 
 exports.signing = async (req, res) => {
     console.log("signing",req.body);
