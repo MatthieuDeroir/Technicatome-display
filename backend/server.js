@@ -4,7 +4,7 @@ const cron = require('node-cron');
 const cors = require('cors');
 require('dotenv').config();
 
-const { addDayWithoutAccident, initializeAccident, updateDaysWithoutAccident } = require('./controllers/accidentController');
+const { addDayWithoutAccident, initializeAccident, updateDaysWithoutAccident } = require('./Controllers/AccidentController');
 
 const accidentRoutes = require('./Routes/AccidentRoutes');
 const userRoutes = require('./Routes/UserRoutes');
