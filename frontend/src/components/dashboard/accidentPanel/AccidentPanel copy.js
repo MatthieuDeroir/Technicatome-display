@@ -59,7 +59,7 @@ function AccidentPanel() {
               sx={{ color: "text.primary" }}
               className="headerTitle"
             >
-              {t("controlPanel")}
+              Control Panel
             </Typography>
           </Box>
           <Box className="headerRight">

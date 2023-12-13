@@ -23,16 +23,14 @@ function Preview() {
           </Stack>
           <Box
             className="containerPage"
-            sx={{
-              paddingLeft: { xs: 2, sm: 6 },
-              paddingRight: { xs: 2, sm: 6 },
-            }}
+            style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+
           >
-           {/*  <iframe
-              src="http://localhost:3001"
+            <iframe
+              src="http://localhost:2000"
               title="Preview"
-              style={{ border: "none", height: "240px", width: "480px" }}
-            ></iframe> */}
+              style={{ border: "none", height: "288px", width: "576px" }}
+            ></iframe>
           </Box>
         </Paper>
       </Grid>
