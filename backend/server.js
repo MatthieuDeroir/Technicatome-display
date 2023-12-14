@@ -7,14 +7,14 @@ require("dotenv").config();
 const {
   initializeSlideshowStatus,
 } = require("./Controllers/SlideshowStatutController");
-const { initializeSettings } = require("./controllers/settingsController");
+const { initializeSettings } = require("./Controllers/SettingsController");
 const {
   addDayWithoutAccident,
   initializeAccident,
   updateDaysWithoutAccident,
-} = require("./controllers/accidentController");
+} = require("./Controllers/AccidentController");
 
-const { newYear } = require("./controllers/accidentController");
+const { newYear } = require("./Controllers/AccidentController");
 
 const accidentRoutes = require("./Routes/AccidentRoutes");
 const userRoutes = require("./Routes/UserRoutes");
