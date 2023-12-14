@@ -1,6 +1,24 @@
 // data controller
 const DataModel = require("../Models/DataModel");
 
+
+exports.initializeSettings = async (req, res) => {
+    try {
+        const data = await DataModel.findOne();
+        if (!data) {
+            const defaultData = new DataModel({
+                temperature:"25",
+            });
+            await defaultData.save();
+            console.log("Datas document initialized successfully");
+        } else {
+            console.log("Datas document already exists");
+        }
+    } catch (error) {
+        console.error("Error initializing Datas document:", error);
+    }
+};
+
 exports.getData = async (req, res) => {
     try {
         const data = await DataModel.find();

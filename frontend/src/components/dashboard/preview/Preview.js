@@ -27,7 +27,7 @@ function Preview() {
 
           >
             <iframe
-              src="http://localhost:2000"
+              src="http://192.168.100.174:2000"
               title="Preview"
               style={{ border: "none", height: "288px", width: "576px" }}
             ></iframe>

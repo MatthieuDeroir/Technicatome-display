@@ -13,6 +13,7 @@ const {
   initializeAccident,
   updateDaysWithoutAccident,
 } = require("./Controllers/AccidentController");
+const { initalizeData } = require('./Controllers/DataController')
 
 const { newYear } = require("./Controllers/AccidentController");
 
@@ -58,6 +59,7 @@ try {
   initializeAccident();
   initializeSlideshowStatus();
   initializeSettings();
+  initializeData();
 } catch (error) {
   console.error("Error while initializing", error);
 }
