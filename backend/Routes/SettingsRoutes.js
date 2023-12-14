@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const settingsController = require("../controllers/SettingsController");
+const settingsController = require("../Controllers/SettingsController");
 
-const authMiddleware = require("../Middlewares/authMiddleware");
+const authMiddleware = require("../Middlewares/AuthMiddleware");
 
 router
   .route("/get-settings")
