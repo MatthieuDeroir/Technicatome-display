@@ -4,7 +4,7 @@ import requests
 sensor = W1ThermSensor()
 
 # API Endpoint
-api_url = "http://127.0.0.1:4000/api/data/0"  # Replace with your API URL and data ID
+api_url = "http://127.0.0.1:4000/api/data/657ac815b7481055950ab1ae"  # Replace with your API URL and data ID
 
 def read_temperature_from_sensor():
     # Reading temperature from DS18B20 sensor

@@ -6,3 +6,7 @@ const DataSchema = new mongoose.Schema({
         required: true
     }
 });
+
+const Data = mongoose.model('Data', DataSchema);
+
+module.exports = Data;

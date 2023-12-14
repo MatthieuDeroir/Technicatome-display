@@ -1,5 +1,4 @@
 // data controller
-
 const DataModel = require("../Models/DataModel");
 
 exports.getData = async (req, res) => {
