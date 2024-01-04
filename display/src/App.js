@@ -117,12 +117,13 @@ function App() {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            const fetchData = async () => {
+            const fetchTemperature = async () => {
                 const dataRes = await dataService.getData();
                 setTemperature(dataRes.data[0].temperature);
                 console.log("temperature", temperature)
             };
-            fetchData();
+            fetchTemperature()
+                .then(() => console.log("temperature", temperature))
         }, 5000);
         return () => clearInterval(interval);
     });
