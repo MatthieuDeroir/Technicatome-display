@@ -7,7 +7,7 @@ const dataController = require("../Controllers/DataController");
 
 router.get("/", dataController.getData);
 router.post("/", dataController.createData);
-router.put("/:id", dataController.updateData);
+router.put("/", dataController.updateData);
 
 module.exports = router;
 
