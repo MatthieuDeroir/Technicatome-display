@@ -7,7 +7,7 @@ exports.initializeSettings = async (req, res) => {
         const data = await DataModel.findOne();
         if (!data) {
             const defaultData = new DataModel({
-                temperature:"25",
+                temperature: "25",
             });
             await defaultData.save();
             console.log("Datas document initialized successfully");
@@ -56,7 +56,7 @@ exports.updateData = async (req, res) => {
         const updatedData = await DataModel.findOneAndUpdate({}, req.body, {
             new: true,
             runValidators: true,
-            sort: { _id: 1 } // sorts documents by _id in ascending order, effectively getting the first document
+            sort: {_id: 1} // sorts documents by _id in ascending order, effectively getting the first document
         });
         if (!updatedData) {
             return res.status(404).json({
@@ -80,12 +80,10 @@ exports.updateData = async (req, res) => {
 exports.updateFirstData = async (req, res) => {
     try {
         // Step 1: Fetch all documents
-        const allData = await DataModel.find({});
-        console.log("all datas:", allData)
+        const allData = await DataModel.find();
 
         // Step 2: Select only the first document
         const firstData = allData[0];
-        console.log("first data:", firstData)
 
         if (!firstData) {
             return res.status(404).json({
@@ -96,11 +94,9 @@ exports.updateFirstData = async (req, res) => {
 
         // Step 3: Update the first document with req.body
         Object.assign(firstData, req.body);
-        console.log("updated first data:", firstData)
 
         // Step 4: Save the updated document
         const updatedData = await firstData.save();
-        console.log("updated data:", updatedData)
 
         // Send response
         res.status(200).json({
