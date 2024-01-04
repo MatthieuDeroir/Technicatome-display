@@ -10,6 +10,7 @@ import "./Global.css";
 import TestPage from "./pages/TestPage";
 import { settingsService } from "./services/SettingsService";
 import { accidentService } from "./services/AccidentServices";
+import { dataService } from "./services/DataService";
 import AccidentPage from "./pages/AccidentPage";
 import DataPage from "./pages/DataPage";
 
@@ -24,6 +25,8 @@ function App() {
 
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
+  const [temperature, setTemperature] = useState("");
+
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -47,14 +50,15 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const [accidentRes, veilleRes, slideshowRes, slideshowStatusRes] =
+      const [accidentRes, veilleRes, slideshowRes, slideshowStatusRes, dataRes] =
         await Promise.all([
           accidentService.getAccident(),
           settingsService.getSettings(),
           slideshowService.getSlideshow(),
           slideshowStatutsService.getSlideshowStatus(),
+            dataService.getData(),
         ]);
-
+      setTemperature(dataRes[0].temperature);
       setIsVeilleMode(checkIsInVeillePeriod(veilleRes[0]));
       setAccident(accidentRes[0]);
       console.log("accident", accidentRes[0]);
@@ -140,7 +144,7 @@ function App() {
             {media.type === "Panneau" ? (
               <AccidentPage accident={accident} />
             ) : media.type === "Data" ? (
-              <DataPage time={time} date={date} />
+              <DataPage time={time} date={date} temperature={temperature} />
             ) : (
               <MediasPage media={media} />
             )}
