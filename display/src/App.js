@@ -61,6 +61,7 @@ function App() {
       console.log("dataRes", dataRes);
       console.log("dataRes.data", dataRes.data);
         console.log("dataRes.data[0]", dataRes.data[0]);
+        console.log("dataRes.data[0].temperature", dataRes.data[0].temperature);
       setTemperature(dataRes.data[0].temperature);
       console.log("temperature", temperature);
       setIsVeilleMode(checkIsInVeillePeriod(veilleRes[0]));
