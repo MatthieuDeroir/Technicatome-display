@@ -79,27 +79,36 @@ exports.updateData = async (req, res) => {
 
 exports.updateFirstData = async (req, res) => {
     try {
-        const updatedData = await DataModel.findOneAndUpdate({}, req.body, {
-            new: true,
-            runValidators: true,
-            sort: { _id: 1 } // sorts documents by _id in ascending order
-        });
-        if (!updatedData) {
+        // Step 1: Fetch all documents
+        const allData = await DataModel.find({});
+
+        // Step 2: Select only the first document
+        const firstData = allData[0];
+        if (!firstData) {
             return res.status(404).json({
                 status: "fail",
-                message: "No data found",
+                message: "No data found"
             });
         }
+
+        // Step 3: Update the first document with req.body
+        Object.assign(firstData, req.body);
+
+        // Step 4: Save the updated document
+        const updatedData = await firstData.save();
+
+        // Send response
         res.status(200).json({
             status: "success",
-            data: updatedData,
+            data: updatedData
         });
 
     } catch (err) {
         res.status(400).json({
             status: "fail",
-            message: err,
+            message: err.message
         });
     }
-}
+};
+
 
