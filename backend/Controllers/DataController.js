@@ -52,16 +52,17 @@ exports.createData = async (req, res) => {
 // update data
 exports.updateData = async (req, res) => {
     try {
-        const updatedData = await DataModel.findByIdAndUpdate(req.param.id, req.body, {
+        // Use findOneAndUpdate to get and update the first document
+        const updatedData = await DataModel.findOneAndUpdate({}, req.body, {
             new: true,
             runValidators: true,
+            sort: { _id: 1 } // sorts documents by _id in ascending order, effectively getting the first document
         });
         if (!updatedData) {
             return res.status(404).json({
                 status: "fail",
-                message: "No data found with that ID",
+                message: "No data found",
             });
-
         }
         res.status(200).json({
             status: "success",
@@ -74,5 +75,5 @@ exports.updateData = async (req, res) => {
             message: err,
         });
     }
-    
 }
+
