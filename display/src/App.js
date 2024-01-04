@@ -142,6 +142,7 @@ function App() {
                 alt="logo"
                 className="logo"
             />
+            <div>temperature {temperature}</div>
             {isTesting ? (
                 <TestPage/>
             ) : isVeilleMode ? (
