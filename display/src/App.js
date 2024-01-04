@@ -56,9 +56,11 @@ function App() {
           settingsService.getSettings(),
           slideshowService.getSlideshow(),
           slideshowStatutsService.getSlideshowStatus(),
-            dataService.getData(),
+          dataService.getData(),
         ]);
+      console.log("dataRes", dataRes);
       setTemperature(dataRes[0].temperature);
+      console.log("temperature", temperature);
       setIsVeilleMode(checkIsInVeillePeriod(veilleRes[0]));
       setAccident(accidentRes[0]);
       console.log("accident", accidentRes[0]);
