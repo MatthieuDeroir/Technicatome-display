@@ -81,9 +81,12 @@ exports.updateFirstData = async (req, res) => {
     try {
         // Step 1: Fetch all documents
         const allData = await DataModel.find({});
+        console.log("all datas:", allData)
 
         // Step 2: Select only the first document
         const firstData = allData[0];
+        console.log("first data:", firstData)
+
         if (!firstData) {
             return res.status(404).json({
                 status: "fail",
@@ -93,9 +96,11 @@ exports.updateFirstData = async (req, res) => {
 
         // Step 3: Update the first document with req.body
         Object.assign(firstData, req.body);
+        console.log("updated first data:", firstData)
 
         // Step 4: Save the updated document
         const updatedData = await firstData.save();
+        console.log("updated data:", updatedData)
 
         // Send response
         res.status(200).json({
