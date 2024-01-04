@@ -166,7 +166,7 @@ function App() {
             ) : pageIndex === 0 ? (
                 <AccidentPage accident={accident}/>
             ) : (
-                <DataPage time={time} date={date}/>
+                <DataPage time={time} date={date} temperature={temperature}/>
             )}
         </div>
     );
