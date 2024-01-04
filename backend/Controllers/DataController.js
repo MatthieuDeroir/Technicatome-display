@@ -77,3 +77,29 @@ exports.updateData = async (req, res) => {
     }
 }
 
+exports.updateFirstData = async (req, res) => {
+    try {
+        const updatedData = await DataModel.findOneAndUpdate({}, req.body, {
+            new: true,
+            runValidators: true,
+            sort: { _id: 1 } // sorts documents by _id in ascending order
+        });
+        if (!updatedData) {
+            return res.status(404).json({
+                status: "fail",
+                message: "No data found",
+            });
+        }
+        res.status(200).json({
+            status: "success",
+            data: updatedData,
+        });
+
+    } catch (err) {
+        res.status(400).json({
+            status: "fail",
+            message: err,
+        });
+    }
+}
+
