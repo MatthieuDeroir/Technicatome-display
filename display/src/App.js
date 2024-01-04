@@ -59,7 +59,7 @@ function App() {
           dataService.getData(),
         ]);
       console.log("dataRes", dataRes);
-      setTemperature(dataRes[0].temperature);
+      setTemperature(dataRes.data[0].temperature);
       console.log("temperature", temperature);
       setIsVeilleMode(checkIsInVeillePeriod(veilleRes[0]));
       setAccident(accidentRes[0]);
