@@ -115,16 +115,15 @@ function App() {
         return currentHour >= startHour && stopHour <= currentHour;
     };
 
+
     useEffect(() => {
-        const interval = setInterval(() => {
-            const fetchTemperature = async () => {
-                const dataRes = await dataService.getData();
-                setTemperature(dataRes.data[0].temperature);
-                console.log("temperature", temperature)
-            };
-            fetchTemperature()
-                .then(() => console.log("temperature", temperature))
-        }, 5000);
+        const fetchTemperature = async () => {
+            const dataRes = await dataService.getData();
+            setTemperature(dataRes.data[0].temperature);
+            console.log("temperature", temperature)
+        };
+        fetchTemperature();
+        const interval = setInterval(fetchTemperature, 5000);
         return () => clearInterval(interval);
     });
 
