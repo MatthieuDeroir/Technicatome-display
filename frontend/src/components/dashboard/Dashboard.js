@@ -34,13 +34,13 @@ function Dashboard() {
 
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12} sm={4}>
+      <Grid item xs={12} sm={3}>
         <AccidentPanel />
       </Grid>
-      <Grid item xs={12} sm={4}>
+      <Grid item xs={12} sm={6}>
         <Preview />
       </Grid>
-      <Grid item xs={12} sm={4}>
+      <Grid item xs={12} sm={3}>
         {slideshow ? (
           <SlideshowConfig
             slideshow={slideshow}
