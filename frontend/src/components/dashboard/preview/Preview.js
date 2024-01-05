@@ -26,7 +26,7 @@ function Preview() {
                     </Stack>
                     <Box
                         className="containerPage"
-                        style={{display: "flex", justifyContent: "center"}}
+                        style={{alignItems: "center"}}
 
                     >
                         <iframe
