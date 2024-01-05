@@ -2,7 +2,7 @@
 const DataModel = require("../Models/DataModel");
 
 
-exports.initializeSettings = async (req, res) => {
+exports.initializeData = async (req, res) => {
     try {
         const data = await DataModel.findOne();
         if (!data) {

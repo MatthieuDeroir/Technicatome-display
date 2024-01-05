@@ -13,7 +13,7 @@ const {
   initializeAccident,
   updateDaysWithoutAccident,
 } = require("./Controllers/AccidentController");
-const { initalizeData } = require('./Controllers/DataController')
+const { initializeData } = require('./Controllers/DataController')
 
 const { newYear } = require("./Controllers/AccidentController");
 
@@ -39,9 +39,12 @@ app.use(cors());
 
 app.use(express.json());
 
+
+addDayWithoutAccident().then(r => console.log(r));
+
 cron.schedule("0 0 * * *", async () => {
   try {
-    await addDayWithoutAccident();
+
   } catch (error) {
     console.error("Error while adding a day without accident", error);
   }
