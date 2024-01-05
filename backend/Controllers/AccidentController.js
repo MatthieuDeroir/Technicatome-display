@@ -23,7 +23,11 @@ exports.addDayWithoutAccident = async (req, res) => {
 
     // Compare if a day or more has passed
     if (currentDate.diff(lastUpdated, 'days') >= 1) {
+      if (accidentInfo.daysWithoutAccident + currentDate.diff(lastUpdated, 'days') < 999999) {
       accidentInfo.daysWithoutAccident += currentDate.diff(lastUpdated, 'days');
+        } else {
+        accidentInfo.daysWithoutAccident = 999999;
+      }
 
       if (accidentInfo.daysWithoutAccident > accidentInfo.recordDaysWithoutAccident) {
         accidentInfo.recordDaysWithoutAccident = accidentInfo.daysWithoutAccident;
