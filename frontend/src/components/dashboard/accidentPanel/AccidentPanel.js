@@ -23,7 +23,7 @@ function AccidentPanel() {
   const handleChange = (event) => {
     const { name, value } = event.target;
     const numericValue = Number(value);
-    if (numericValue >= 0 && numericValue <= 99999) {
+    if (numericValue >= 0 && numericValue <= 999999) {
       setAccidentData((prevData) => ({
         ...prevData,
         [name]: numericValue,
