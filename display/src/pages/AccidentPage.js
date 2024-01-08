@@ -12,7 +12,7 @@ function AccidentPage(props) {
     flexDirection: "column",
 
     fontSize: "21px",
-    marginTop: "20px",
+    marginTop: "5px",
   };
 
   const flexItem = {

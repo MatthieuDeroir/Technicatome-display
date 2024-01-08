@@ -189,14 +189,14 @@ function Settings() {
                       />
                     </Box>
                   </Stack> */}
-                    <Stack direction="row" alignItems="center" spacing={3}>
+                   {/*  <Stack direction="row" alignItems="center" spacing={3}>
                       <IconButton disabled>
                         <BugReportIcon sx={{ color: "text.secondary" }} />
                       </IconButton>
                       <Typography variant="h8" sx={{ color: "text.primary" }}>
                         Test panneau
                       </Typography>
-                    </Stack>
+                    </Stack> */}
                     <Stack
                       onClick={handleSyncDate}
                       direction="row"
