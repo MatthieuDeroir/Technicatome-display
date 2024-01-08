@@ -24,7 +24,7 @@ function DataPage(props) {
   };
 
   const timeTempStyle = {
-    marginTop: "30px",
+    marginTop: "10px",
     display: "flex",
     justifyContent: "space-around",
     width: "100%",

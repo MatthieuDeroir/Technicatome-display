@@ -100,6 +100,7 @@ function handleError(error, res) {
 }
 
 exports.deleteFile = (req, res) => {
+  console.log("test",req.body);
   const directoryPath = path.join(
     __dirname,
     process.env.UPLOAD_PATH

@@ -15,6 +15,7 @@ import AccidentPage from "./pages/AccidentPage";
 import DataPage from "./pages/DataPage";
 
 function App() {
+
     const [accident, setAccident] = useState({});
     const [isVeilleMode, setIsVeilleMode] = useState(false);
     const [isTesting, setIsTesting] = useState(false);
@@ -116,6 +117,7 @@ function App() {
     };
 
 
+
     useEffect(() => {
         const fetchTemperature = async () => {
             const dataRes = await dataService.getData();
@@ -127,8 +129,41 @@ function App() {
         return () => clearInterval(interval);
     });
 
-    return (
-        <div
+    return () => clearInterval(mediaInterval);
+  }, [currentSlideshow, currentMediaIndex]);
+
+  const checkIsInVeillePeriod = (veilleData) => {
+    if (!veilleData.enable) {
+      return false;
+    }
+    const currentHour = new Date().getHours();
+    const startHour = parseInt(veilleData.start.split(":")[0], 10);
+    const stopHour = parseInt(veilleData.stop.split(":")[0], 10);
+    return currentHour >= startHour && currentHour <= stopHour;
+  };
+
+  return (
+    <div
+      style={{
+        maxHeight: `${process.env.REACT_APP_HEIGHT}px`,
+        maxWidth: `${process.env.REACT_APP_WIDTH}px`,
+        overflow: "hidden",
+      }}
+    >
+      <img
+        style={{ width: "100%" , marginBottom:"-3px" }}
+        src="/HeaderPicture.png"
+        alt="logo"
+      />
+     
+      {isTesting ? (
+        <TestPage />
+      ) : !isVeilleMode ? (
+        <></>
+      ) : currentSlideshow.media && currentSlideshow.media.length > 0 ? (
+        currentSlideshow.media.map((media, index) => (
+          <div
+            key={media._id}
             style={{
                 maxHeight: `${process.env.REACT_APP_HEIGHT}px`,
                 maxWidth: `${process.env.REACT_APP_WIDTH}px`,
