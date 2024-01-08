@@ -16,34 +16,38 @@ function AccidentPage(props) {
   };
 
   const flexItem = {
-    marginBottom: "30px",
+    marginBottom: "15px",
     textAlign: "left",
-    marginLeft: "2px", // adjust this value to move text to the left
+    marginLeft: "2px",
     display: "flex",
     alignItems: "center",
   };
 
   const numberStyle = {
-    marginLeft: "10px", // adjust this value to move number to the left
-    fontSize: "30px",
-    width: "50px", // adjust this value according to your needs
-  }
+    marginLeft: "10px",
+    fontSize: "50px",
+    width: "150px",
+  };
+  const texte = {
+    fontSize: "25px",
+    width: "100%",
+  };
 
   return (
     <div style={flexContainer}>
       <div style={flexItem}>
-        <div style={numberStyle}>
-          {numberOfAccidentsSinceStartOfTheYear}
+        <div style={numberStyle}>{numberOfAccidentsSinceStartOfTheYear}</div>
+        <div style={texte}>
+          Nombre d'accidents avec arrêt depuis le début de l'année
         </div>
-        <div> Nombre d'accidents avec arrêt depuis le début de l'année</div>
       </div>
       <div style={flexItem}>
         <div style={numberStyle}>{daysWithoutAccident}</div>
-        <div> Nombre de jours sans accident avec arrêt</div>
+        <div style={texte}> Nombre de jours sans accident avec arrêt</div>
       </div>
       <div style={flexItem}>
         <div style={numberStyle}>{recordDaysWithoutAccident}</div>
-        <div> Record de jours sans accident avec arrêt</div>
+        <div style={texte}> Record de jours sans accident avec arrêt</div>
       </div>
     </div>
   );
