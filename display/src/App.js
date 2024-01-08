@@ -55,11 +55,8 @@ function App() {
           slideshowStatutsService.getSlideshowStatus(),
         ]);
           
-        console.log("veilleRes", veilleRes[0]);
-        console.log(checkIsInVeillePeriod(veilleRes[0]));
       setIsVeilleMode(checkIsInVeillePeriod(veilleRes[0]));
       setAccident(accidentRes[0]);
-      console.log("accident", accidentRes[0]);
 
       const currentSlideshowId = slideshowStatusRes[0]?.slideshowId;
       if (slideshowStatusRes[0]?.isRunning) {
@@ -109,9 +106,6 @@ function App() {
     const currentHour = new Date().getHours();
     const startHour = parseInt(veilleData.start.split(":")[0], 10);
     const stopHour = parseInt(veilleData.stop.split(":")[0], 10);
-
-    console.log(currentHour, startHour, stopHour);
-    console.log(currentHour >= startHour);
     return currentHour >= startHour && currentHour <= stopHour;
   };
 
