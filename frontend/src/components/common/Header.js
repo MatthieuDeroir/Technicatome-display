@@ -3,7 +3,7 @@ import { AppBar, Box, Toolbar } from "@mui/material";
 
 function Header(props) {
 
-  return (
+return (
     <AppBar
       sx={{
         justifyContent: "center",
@@ -18,6 +18,7 @@ function Header(props) {
           padding: "0",
         }}
       >
+       
         <Box
           component="img"
           src={props.themeMode === "dark" ? "/pictures/Logo_Stramatel_White.png" : "/pictures/Logo_Stramatel_Dark.png"}

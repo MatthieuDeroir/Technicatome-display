@@ -1,86 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="5def2882-afa8-425d-ada4-4b801b4c177d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Documentation API Technicatome.docx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Controllers/DataController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Controllers/VeilleController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Models/DataModel.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Models/VeilleModel.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Routes/DataRoutes.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Routes/MediaRoutes.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Routes/VeilleRoutes.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Test/accident/getAccident.bru" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Test/accident/updateAccident.bru" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Test/bruno.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Test/environments/PC maison.bru" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Test/environments/PC stram.bru" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Test/slideshow/addSimpleMediaToSlideshow.bru" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Test/slideshow/delete-slideshow.bru" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Test/slideshow/deleteFile.bru" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Test/slideshow/get-slideshow.bru" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Test/slideshow/post-slideshow.bru" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Test/slideshow/updateSlideshowMedia.bru" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Test/slideshow/updateSlideshowOderMedia.bru" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Test/upload/uploadFile.bru" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Test/user/signing.bru" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Test/user/signup.bru" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Test/veille/getVeille.bru" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Test/veille/updateVeille.bru" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/temperature.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/display/main.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/display/src/Components/AccidentInfo.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/display/src/Components/DateTime.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/display/src/Components/ScrollingText.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/display/src/Components/ScrollingText.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/config/config.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/services/VeilleService.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/translate/de.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/translate/en.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/translate/es.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/translate/fr.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/translate/i18n.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/translate/pl.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/test/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Controllers/AccidentController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Controllers/AccidentController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Controllers/MediaController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Controllers/MediaController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Controllers/SlideshowController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Controllers/SlideshowController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Controllers/UserController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Controllers/UserController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Middlewares/AuthMiddleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Middlewares/AuthMiddleware.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Middlewares/UploadMiddleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Middlewares/UploadMiddleware.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/backend/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Routes/AccidentRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Routes/AccidentRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Routes/SlideshowRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Routes/SlideshowRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Routes/UserRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Routes/UserRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/display/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/display/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/display/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/display/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/display/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/display/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/display/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/display/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/display/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/display/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/common/NavBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/common/NavBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/dashboard/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/dashboard/Dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/dashboard/accidentPanel/AccidentPanel.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/dashboard/accidentPanel/AccidentPanel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/dashboard/preview/Preview.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/dashboard/preview/Preview.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/dashboard/slideshow/SlideshowConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/dashboard/slideshow/SlideshowConfig.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/dashboard/slideshow/SlideshowList.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/dashboard/slideshow/SlideshowList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/dialogs/AddSlideshowDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/dialogs/AddSlideshowDialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/dialogs/ChangePasswordDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/dialogs/ChangePasswordDialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/dialogs/DeleteSlideshowDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/dialogs/DeleteSlideshowDialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/login/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/login/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/settings/settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/settings/settings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/helpers/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/helpers/api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/services/AccidentServices.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/services/AccidentServices.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/services/MediaServices.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/services/MediaServices.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/services/SlideshowService.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/services/SlideshowService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/services/UserServices.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/services/UserServices.js" afterDir="false" />
-    </list>
+    <list default="true" id="a239b104-070b-4c00-8e17-d7723278b52c" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -112,32 +36,50 @@
       </RecentBranches>
     </option>
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="2ZUWBJzfO62ScMH9tdLpfCgKhzT" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/Users/mderoir/Desktop/Stramatel/Technicatome",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;16.18.1&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;16.18.1&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/mderoir/Desktop/Stramatel/Technicatome&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="ReactDesignerToolWindowState">
+    <option name="myId2Visible">
+      <map>
+        <entry key="com.haulmont.rcb.reactComponents" value="false" />
+        <entry key="com.haulmont.rcb.reactInspector" value="false" />
+      </map>
+    </option>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="5def2882-afa8-425d-ada4-4b801b4c177d" name="Changes" comment="" />
+      <changelist id="a239b104-070b-4c00-8e17-d7723278b52c" name="Changes" comment="" />
       <created>1702477001783</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1702477001783</updated>
       <workItem from="1702477003457" duration="206000" />
+      <workItem from="1702548755241" duration="3206000" />
     </task>
     <servers />
   </component>

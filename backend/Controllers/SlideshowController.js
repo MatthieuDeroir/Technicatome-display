@@ -214,6 +214,7 @@ exports.updateSlideshow = async (req, res) => {
 // Supprimer un slideshow
 // Supprimer un slideshow et tous les médias associés
 exports.deleteSlideshow = async (req, res) => {
+  console.log("deleteSlideshow", req.params.id.toString());
   const slideshowId = req.params.id;
   console.log("deleteSlideshow", slideshowId);
 

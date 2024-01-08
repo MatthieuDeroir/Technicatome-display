@@ -1,3 +1,4 @@
+const moment = require('moment');
 const AccidentSchema = require("../Models/AccidentModel");
 
 exports.getAccident = async (req, res) => {
@@ -12,19 +13,36 @@ exports.getAccident = async (req, res) => {
 exports.addDayWithoutAccident = async (req, res) => {
   try {
     const accidentInfo = await AccidentSchema.findOne();
+    console.log("accidentInfo", accidentInfo);
     if (!accidentInfo) throw new Error("Accident Info not found");
 
-    accidentInfo.daysWithoutAccident += 1;
-    if (
-      accidentInfo.daysWithoutAccident > accidentInfo.recordDaysWithoutAccident
-    ) {
-      accidentInfo.recordDaysWithoutAccident = accidentInfo.daysWithoutAccident;
-    }
+    const lastUpdated = moment(accidentInfo.lastUpdated); // Assuming lastUpdated is a Date object
+    console.log("lastUpdated", lastUpdated)
+    const currentDate = moment();
+    console.log("currentDate", currentDate)
 
-    await accidentInfo.save();
-    console.log("Added a day without accident");
+    // Compare if a day or more has passed
+    if (currentDate.diff(lastUpdated, 'days') >= 1) {
+      if (accidentInfo.daysWithoutAccident + currentDate.diff(lastUpdated, 'days') < 999999) {
+      accidentInfo.daysWithoutAccident += currentDate.diff(lastUpdated, 'days');
+        } else {
+        accidentInfo.daysWithoutAccident = 999999;
+      }
+
+      if (accidentInfo.daysWithoutAccident > accidentInfo.recordDaysWithoutAccident) {
+        accidentInfo.recordDaysWithoutAccident = accidentInfo.daysWithoutAccident;
+      }
+
+      // Update lastUpdated to current date
+      accidentInfo.lastUpdated = currentDate.toDate();
+
+      await accidentInfo.save();
+      console.log("Added a day without accident");
+    } else {
+      console.log("Less than a day passed since last update, no action taken");
+    }
   } catch (err) {
-    console.log("Error while adding a day without accident", err);
+    console.error("Error while adding a day without accident", err);
   }
 };
 

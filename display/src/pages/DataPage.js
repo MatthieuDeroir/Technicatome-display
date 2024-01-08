@@ -36,7 +36,7 @@ function DataPage(props) {
         <div style={dataStyle}>{props.date}</div>
         <div style={timeTempStyle}>
           <div>{props.time}</div>
-          <div>20C°</div>
+          <div>{props.temperature.split('.')[0]}°C</div>
         </div>
       </div>
     </div>

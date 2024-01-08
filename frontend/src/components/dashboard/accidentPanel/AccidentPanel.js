@@ -22,23 +22,26 @@ function AccidentPanel() {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    console.log(name, value);
-    setAccidentData((prevData) => ({
-      ...prevData,
-      [name]: Number(value),
-    }));
+    const numericValue = Number(value);
+    if (numericValue >= 0 && numericValue <= 999999) {
+      setAccidentData((prevData) => ({
+        ...prevData,
+        [name]: numericValue,
+      }));
+    }
   };
 
   const handleSubmit = () => {
     if (
       accidentData.daysWithoutAccident > accidentData.recordDaysWithoutAccident
     ) {
+      accidentData.recordDaysWithoutAccident = accidentData.daysWithoutAccident;
       accidentService.updateAccident(accidentData).then((data) => {
         setAccidentData({
           numberOfAccidentsSinceStartOfTheYear:
             data.numberOfAccidentsSinceStartOfTheYear,
           daysWithoutAccident: data.daysWithoutAccident,
-          recordDaysWithoutAccident: data.daysWithoutAccident,
+          recordDaysWithoutAccident: accidentData.daysWithoutAccident,
         });
       });
     } else
