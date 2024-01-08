@@ -7,7 +7,7 @@ function MediasPage({ media }) {
         <img
           style={{
             width: `${process.env.REACT_APP_WIDTH}px`,
-            height: `${process.env.REACT_APP_HEIGHT}px`,
+            height: `${process.env.REACT_APP_HEIGHT - 80 }px`,
           }}
           src={process.env.REACT_APP_MEDIA_DISPLAY_PATH + media.path}
           alt={`Media ${media.id}`}
@@ -18,7 +18,7 @@ function MediasPage({ media }) {
         <video
           style={{
             width: `${process.env.REACT_APP_WIDTH}px`,
-            height: `${process.env.REACT_APP_HEIGHT}px`,
+            height: `${process.env.REACT_APP_HEIGHT - 80}px`,
           }}
           autoPlay
           muted
