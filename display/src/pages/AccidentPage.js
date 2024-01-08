@@ -43,7 +43,7 @@ function AccidentPage(props) {
       </div>
       <div style={flexItem}>
         <div style={numberStyle}>{recordDaysWithoutAccident}</div>
-        <div> Record de jour sans accident avec arrêt</div>
+        <div> Record de jours sans accident avec arrêt</div>
       </div>
     </div>
   );

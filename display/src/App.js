@@ -120,11 +120,11 @@ function App() {
       }}
     >
       <img
-        style={{ width: "100%" }}
+        style={{ width: "100%" , marginBottom:"-3px" }}
         src="/HeaderPicture.png"
         alt="logo"
-        className="logo"
       />
+     
       {isTesting ? (
         <TestPage />
       ) : isVeilleMode ? (
