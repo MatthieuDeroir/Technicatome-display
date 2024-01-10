@@ -4,11 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a239b104-070b-4c00-8e17-d7723278b52c" name="Changes" comment="" />
+    <list default="true" id="a239b104-070b-4c00-8e17-d7723278b52c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/backend/Config/Cron.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Controllers/SlideshowController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Controllers/SlideshowController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/server.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="GitToolBoxStore">
     <option name="projectConfigVersion" value="5" />
@@ -79,7 +91,15 @@
       <option name="presentableId" value="Default" />
       <updated>1702477001783</updated>
       <workItem from="1702477003457" duration="206000" />
-      <workItem from="1702548755241" duration="3206000" />
+      <workItem from="1702548755241" duration="4355000" />
+      <workItem from="1702566319438" duration="1283000" />
+      <workItem from="1702570746057" duration="392000" />
+      <workItem from="1702891283257" duration="62000" />
+      <workItem from="1704356158532" duration="14671000" />
+      <workItem from="1704711037492" duration="332000" />
+      <workItem from="1704720599691" duration="631000" />
+      <workItem from="1704811848944" duration="107000" />
+      <workItem from="1704871941183" duration="182000" />
     </task>
     <servers />
   </component>
