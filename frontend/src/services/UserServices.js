@@ -9,7 +9,6 @@ export const userService = {
 };
 
 function signing(username, password) {
-  // Remarque : JSON.stringify devrait prendre un objet, pas deux arguments séparés.
   return api
     .fetchWithAuthorization(`${API_URL}/api/auth/signing`, {
       method: "POST",

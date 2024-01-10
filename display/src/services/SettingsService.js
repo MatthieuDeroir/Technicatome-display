@@ -7,7 +7,6 @@ export const settingsService = {
 };
 
 function getSettings() {
-  console.log("getSettings" ,API_URL);
   return fetch(`${API_URL}/api/settings/get-settings`, {
     method: "GET",
     headers: {

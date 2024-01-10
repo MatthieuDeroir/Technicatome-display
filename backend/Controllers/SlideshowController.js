@@ -308,11 +308,9 @@ exports.deleteMediaFromSlideshow = async (req, res) => {
       });
     }
 
-    console.log("deleteMediaFromSlideshow01", media);
-    console.log(`../../../daudruy/frontend/build${media.path}`);
     
     fs.unlink(
-      "../../daudruy/frontend/build" + media.path,
+      process.env.DELETE_PATH + media.path,
       async (err) => {
         if (err) {
           console.error(err);
