@@ -216,10 +216,10 @@ function SlideshowConfig(props) {
                     handleUpload();
                   }}
                 >
-                  Upload
+                  Media
                 </MenuItem>
-                <MenuItem onClick={addPanneau}>Panneau</MenuItem>
-                <MenuItem onClick={addData}>Données</MenuItem>
+                <MenuItem onClick={addPanneau}>Accident</MenuItem>
+                <MenuItem onClick={addData}>Date</MenuItem>
               </Menu>
             </Box>
           </Stack>
@@ -272,8 +272,8 @@ function SlideshowConfig(props) {
                               src={media.path}
                             />
                           ) : media.type.split("/")[0] === "Panneau" ?(
-                            "Panneau"
-                          ): ("Donnée")}
+                            "Accident"
+                          ): ("Date")}
                         </TableCell>
 
                         <TableCell sx={{ width: "40%" }} p={0}>

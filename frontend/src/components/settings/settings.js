@@ -143,7 +143,7 @@ function Settings() {
                   sx={{ color: "text.primary" }}
                   className="headerTitle"
                 >
-                  {t("settingsOf")}
+                  Paramètre
                 </Typography>
               </Box>
             </Stack>
@@ -189,7 +189,7 @@ function Settings() {
                           <DarkModeIcon sx={{ color: "text.secondary" }} />
                         </IconButton>
                         <Typography variant="h8" sx={{ color: "text.primary" }}>
-                          {t("darkMode")}
+                          Mode sombre
                         </Typography>
                       </Stack>
                       <Switch
