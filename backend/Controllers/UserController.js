@@ -45,9 +45,9 @@ exports.changePassword = async (req, res) => {
     try {
       const { oldPassword, newPassword } = req.body;
   
-      const user = await User.findOne({ username: 'User' }).select("+password");
+      const user = await User.findOne({ username: 'user' }).select("+password");
       if (!user || !(await bcrypt.compare(oldPassword, user.password))) {
-        return res.status(403).json({ message: "Ancient mot de passe et mauvais" });
+        return res.status(400).json({ message: "Ancient mot de passe et mauvais" });
       } else {
         const hashedPassword = await bcrypt.hash(newPassword, 10);
         await User.findByIdAndUpdate(user._id, { password: hashedPassword });

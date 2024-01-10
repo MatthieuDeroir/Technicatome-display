@@ -13,7 +13,7 @@ class Api {
     });
 
     // Vérifiez le statut de la réponse
-    if (response.status === 401) {
+    if (response.status === 401 || response.status === 403) {
       console.log("La réponse a un statut de 401");
       localStorage.removeItem("token");
       // Redirigez l'utilisateur vers la page de connexion ou effectuez toute autre action appropriée

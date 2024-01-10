@@ -9,6 +9,7 @@ import {
   Switch,
   Slider,
   LinearProgress,
+  CircularProgress,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import DateRangeIcon from "@mui/icons-material/DateRange";
@@ -20,20 +21,26 @@ import StorageIcon from "@mui/icons-material/Storage";
 import BugReportIcon from "@mui/icons-material/BugReport";
 import PhoneIcon from "@mui/icons-material/Phone";
 import ModeNightIcon from "@mui/icons-material/ModeNight";
+import StopIcon from "@mui/icons-material/Stop";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 
 import { useThemeMode } from "../../context/ThemeModeContext";
 import { settingsService } from "../../services/SettingsService";
 import ChangePasswordDialog from "../dialogs/ChangePasswordDialog";
+import { slideshowStatutsService } from "../../services/SlideshowStatutsService";
 
 function Settings() {
   const { t } = useTranslation();
   const [modalOpen, setModalOpen] = useState(false);
   const [veille, setVeille] = useState({});
-  const totalSize = 100; // Taille totale en Go
-  const usedSize = 90; // Taille utilisée en Go
   const { themeMode, toggleTheme } = useThemeMode();
+  const [slideshowToPlay, setSlideshowToPlay] = useState({});
 
   useEffect(() => {
+    slideshowStatutsService.getSlideshowStatus().then((data) => {
+      console.log("data", data[0]);
+      setSlideshowToPlay(data[0]);
+    });
     settingsService
       .getSettings()
       .then((response) => {
@@ -97,7 +104,29 @@ function Settings() {
     settingsService.updateSettings(updatedSettings).then((response) => {});
   };
 
-  const percentage = (usedSize / totalSize) * 100;
+  function stopSlideshow(isTesting) {
+    const date = new Date();
+    const data = {
+      slideshowId: slideshowToPlay.slideshowId,
+      isRunning: false,
+      isTesting: isTesting,
+      date: date.toString(),
+    };
+    slideshowStatutsService.updateSlideshowStatus(data);
+    setSlideshowToPlay(data);
+  }
+
+  function playSlideshow(isTesting) {
+    const date = new Date();
+    const data = {
+      slideshowId: slideshowToPlay.slideshowId,
+      isRunning: false,
+      isTesting: isTesting,
+      date: date.toString(),
+    };
+    slideshowStatutsService.updateSlideshowStatus(data);
+    setSlideshowToPlay(data);
+  }
 
   return (
     <>
@@ -128,26 +157,26 @@ function Settings() {
               <Grid container spacing={6}>
                 <Grid item xs={12} sm={12}>
                   <Stack spacing={2}>
-                    {/* <Stack
-                    onClick={toggleModal}
-                    direction="row"
-                    alignItems="center"
-                    spacing={3}
-                  >
-                    <IconButton disabled>
-                      <LockIcon sx={{ color: "text.secondary" }} />
-                    </IconButton>
-                    <Typography
-                      variant="h8"
-                      sx={{
-                        color: "text.primary",
-                        textTransform: "none",
-                        padding: "0",
-                      }}
+                    <Stack
+                      onClick={toggleModal}
+                      direction="row"
+                      alignItems="center"
+                      spacing={3}
                     >
-                      {t("changePassword")}
-                    </Typography>
-                  </Stack> */}
+                      <IconButton disabled>
+                        <LockIcon sx={{ color: "text.secondary" }} />
+                      </IconButton>
+                      <Typography
+                        variant="h8"
+                        sx={{
+                          color: "text.primary",
+                          textTransform: "none",
+                          padding: "0",
+                        }}
+                      >
+                        Changer mot de passe
+                      </Typography>
+                    </Stack>
                     <Stack
                       onClick={toggleTheme}
                       direction="row"
@@ -168,35 +197,55 @@ function Settings() {
                         color="secondary"
                       />
                     </Stack>
-                    {/*  <Stack
-                    onClick={toggleModal}
-                    direction="row"
-                    alignItems="center"
-                    spacing={3}
-                  >
-                    <IconButton disabled>
-                      <StorageIcon sx={{ color: "text.secondary" }} />
-                    </IconButton>
-
-                    <Box sx={{ flexGrow: 1 }}>
-                      <Typography variant="h8" sx={{ color: "text.primary" }}>
-                        {t("usedStorageSpace")}
-                      </Typography>
-                      <LinearProgress
-                        variant="determinate"
-                        value={percentage}
-                        color={percentage > 80 ? "error" : "secondary"}
-                      />
-                    </Box>
-                  </Stack> */}
-                   {/*  <Stack direction="row" alignItems="center" spacing={3}>
-                      <IconButton disabled>
-                        <BugReportIcon sx={{ color: "text.secondary" }} />
-                      </IconButton>
-                      <Typography variant="h8" sx={{ color: "text.primary" }}>
-                        Test panneau
-                      </Typography>
-                    </Stack> */}
+                    <Stack
+                      direction="row"
+                      justifyContent="space-between"
+                      alignItems="center"
+                      spacing={3}
+                    >
+                      <Stack spacing={3} direction="row" alignItems="center">
+                        <IconButton disabled>
+                          <BugReportIcon sx={{ color: "text.secondary" }} />
+                        </IconButton>
+                        <Typography variant="h8" sx={{ color: "text.primary" }}>
+                          Test panneau
+                        </Typography>
+                      </Stack>
+                      {slideshowToPlay.isTesting ? (
+                        <IconButton
+                          sx={{ p: 0 }}
+                          size="big"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            stopSlideshow(false);
+                          }}
+                        >
+                          <StopIcon
+                            sx={{ fontSize: 40, color: "secondary.main" }}
+                          />
+                          <CircularProgress
+                            size={40}
+                            sx={{
+                              left: -0.5,
+                              position: "absolute",
+                              color: "secondary.main",
+                            }}
+                          />
+                        </IconButton>
+                      ) : (
+                        <IconButton
+                          sx={{ p: 0 }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            playSlideshow(true);
+                          }}
+                        >
+                          <PlayArrowIcon
+                            sx={{ fontSize: 40, color: "secondary.main" }}
+                          />
+                        </IconButton>
+                      )}
+                    </Stack>
                     <Stack
                       onClick={handleSyncDate}
                       direction="row"
@@ -264,7 +313,7 @@ function Settings() {
           </Paper>
         </Grid>
       </Grid>
-      {/*   <ChangePasswordDialog open={modalOpen} onClose={toggleModal} /> */}
+      <ChangePasswordDialog open={modalOpen} onClose={toggleModal} />
     </>
   );
 }

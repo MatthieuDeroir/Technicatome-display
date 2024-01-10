@@ -46,13 +46,18 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const [accidentRes, veilleRes, slideshowRes, slideshowStatusRes, dataRes] =
-        await Promise.all([
-          accidentService.getAccident(),
-          settingsService.getSettings(),
-          slideshowService.getSlideshow(),
-          slideshowStatutsService.getSlideshowStatus(),
-        ]);
+      const [
+        accidentRes,
+        veilleRes,
+        slideshowRes,
+        slideshowStatusRes,
+        dataRes,
+      ] = await Promise.all([
+        accidentService.getAccident(),
+        settingsService.getSettings(),
+        slideshowService.getSlideshow(),
+        slideshowStatutsService.getSlideshowStatus(),
+      ]);
 
       setIsVeilleMode(checkIsInVeillePeriod(veilleRes[0]));
       setAccident(accidentRes[0]);
@@ -120,49 +125,49 @@ function App() {
   }, []);
 
   return (
-    
+    <div
+      style={{
+        maxHeight: `${process.env.REACT_APP_HEIGHT}px`,
+        maxWidth: `${process.env.REACT_APP_WIDTH}px`,
+        overflow: "hidden",
+      }}
+    >
+      {!isTesting && (
+        <img
+          style={{ width: "100%", marginBottom: "-3px" }}
+          src="/HeaderPicture.png"
+          alt="logo"
+          className="logo"
+        />
+      )}
+
+      {isTesting ? (
+        <TestPage />
+      ) : !isVeilleMode ? (
+        <></>
+      ) : currentSlideshow.media && currentSlideshow.media.length > 0 ? (
+        currentSlideshow.media.map((media, index) => (
           <div
+            key={media._id}
             style={{
-              maxHeight: `${process.env.REACT_APP_HEIGHT}px`,
-              maxWidth: `${process.env.REACT_APP_WIDTH}px`,
-              overflow: "hidden",
+              display: index === currentMediaIndex ? "block" : "none",
             }}
           >
-            <img
-              style={{ width: "100%", marginBottom:"-3px" }}
-              src="/HeaderPicture.png"
-              alt="logo"
-              className="logo"
-            />
-            {isTesting ? (
-              <TestPage />
-            ) : !isVeilleMode ? (
-              <></>
-            ) : currentSlideshow.media && currentSlideshow.media.length > 0 ? (
-              currentSlideshow.media.map((media, index) => (
-                <div
-                  key={media._id}
-                  style={{
-                    display: index === currentMediaIndex ? "block" : "none",
-                  }}
-                >
-                  {media.type === "Panneau" ? (
-                    <AccidentPage accident={accident} />
-                  ) : media.type === "Data" ? (
-                    <DataPage time={time} date={date} temperature={temperature} />
-                  ) : (
-                    <MediasPage media={media} />
-                  )}
-                </div>
-              ))
-            ) : pageIndex === 0 ? (
+            {media.type === "Panneau" ? (
               <AccidentPage accident={accident} />
-            ) : (
+            ) : media.type === "Data" ? (
               <DataPage time={time} date={date} temperature={temperature} />
+            ) : (
+              <MediasPage media={media} />
             )}
           </div>
-        
- 
+        ))
+      ) : pageIndex === 0 ? (
+        <AccidentPage accident={accident} />
+      ) : (
+        <DataPage time={time} date={date} temperature={temperature} />
+      )}
+    </div>
   );
 }
 
