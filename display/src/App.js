@@ -1,16 +1,16 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 
-import {slideshowService} from "./services/SlideshowService";
+import { slideshowService } from "./services/SlideshowService";
 
 import _ from "lodash";
 
 import MediasPage from "./pages/MediasPage";
-import {slideshowStatutsService} from "./services/SlideshowStatutsService";
+import { slideshowStatutsService } from "./services/SlideshowStatutsService";
 import "./Global.css";
 import TestPage from "./pages/TestPage";
-import {settingsService} from "./services/SettingsService";
-import {accidentService} from "./services/AccidentServices";
-import {dataService} from "./services/DataService";
+import { settingsService } from "./services/SettingsService";
+import { accidentService } from "./services/AccidentServices";
+import { dataService } from "./services/DataService";
 import AccidentPage from "./pages/AccidentPage";
 import DataPage from "./pages/DataPage";
 
@@ -34,7 +34,7 @@ function App() {
             const now = new Date();
             setDate(now.toLocaleDateString());
             setTime(
-                now.toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})
+                now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
             ); // Updated this line
         }, 1000);
         return () => {
@@ -130,80 +130,80 @@ function App() {
     });
 
     return () => clearInterval(mediaInterval);
-  }, [currentSlideshow, currentMediaIndex]);
+}, [currentSlideshow, currentMediaIndex]);
 
-  const checkIsInVeillePeriod = (veilleData) => {
+const checkIsInVeillePeriod = (veilleData) => {
     if (!veilleData.enable) {
-      return false;
+        return false;
     }
     const currentHour = new Date().getHours();
     const startHour = parseInt(veilleData.start.split(":")[0], 10);
     const stopHour = parseInt(veilleData.stop.split(":")[0], 10);
     return currentHour >= startHour && currentHour <= stopHour;
-  };
+};
 
-  return (
+return (
     <div
-      style={{
-        maxHeight: `${process.env.REACT_APP_HEIGHT}px`,
-        maxWidth: `${process.env.REACT_APP_WIDTH}px`,
-        overflow: "hidden",
-      }}
+        style={{
+            maxHeight: `${process.env.REACT_APP_HEIGHT}px`,
+            maxWidth: `${process.env.REACT_APP_WIDTH}px`,
+            overflow: "hidden",
+        }}
     >
-      <img
-        style={{ width: "100%" , marginBottom:"-3px" }}
-        src="/HeaderPicture.png"
-        alt="logo"
-      />
-     
-      {isTesting ? (
-        <TestPage />
-      ) : !isVeilleMode ? (
-        <></>
-      ) : currentSlideshow.media && currentSlideshow.media.length > 0 ? (
-        currentSlideshow.media.map((media, index) => (
-          <div
-            key={media._id}
-            style={{
-                maxHeight: `${process.env.REACT_APP_HEIGHT}px`,
-                maxWidth: `${process.env.REACT_APP_WIDTH}px`,
-                overflow: "hidden",
-            }}
-        >
-            <img
-                style={{width: "100%"}}
-                src="/HeaderPicture.png"
-                alt="logo"
-                className="logo"
-            />
-            {isTesting ? (
-                <TestPage/>
-            ) : isVeilleMode ? (
-                <></>
-            ) : currentSlideshow.media && currentSlideshow.media.length > 0 ? (
-                currentSlideshow.media.map((media, index) => (
-                    <div
-                        key={media._id}
-                        style={{
-                            display: index === currentMediaIndex ? "block" : "none",
-                        }}
-                    >
-                        {media.type === "Panneau" ? (
-                            <AccidentPage accident={accident}/>
-                        ) : media.type === "Data" ? (
-                            <DataPage time={time} date={date} temperature={temperature}/>
-                        ) : (
-                            <MediasPage media={media}/>
-                        )}
-                    </div>
-                ))
-            ) : pageIndex === 0 ? (
-                <AccidentPage accident={accident}/>
-            ) : (
-                <DataPage time={time} date={date} temperature={temperature}/>
-            )}
-        </div>
-    );
+        <img
+            style={{ width: "100%", marginBottom: "-3px" }}
+            src="/HeaderPicture.png"
+            alt="logo"
+        />
+
+        {isTesting ? (
+            <TestPage />
+        ) : !isVeilleMode ? (
+            <></>
+        ) : currentSlideshow.media && currentSlideshow.media.length > 0 ? (
+            currentSlideshow.media.map((media, index) => (
+                <div
+                    key={media._id}
+                    style={{
+                        maxHeight: `${process.env.REACT_APP_HEIGHT}px`,
+                        maxWidth: `${process.env.REACT_APP_WIDTH}px`,
+                        overflow: "hidden",
+                    }}
+                >
+                    <img
+                        style={{ width: "100%" }}
+                        src="/HeaderPicture.png"
+                        alt="logo"
+                        className="logo"
+                    />
+                    {isTesting ? (
+                        <TestPage />
+                    ) : isVeilleMode ? (
+                        <></>
+                    ) : currentSlideshow.media && currentSlideshow.media.length > 0 ? (
+                        currentSlideshow.media.map((media, index) => (
+                            <div
+                                key={media._id}
+                                style={{
+                                    display: index === currentMediaIndex ? "block" : "none",
+                                }}
+                            >
+                                {media.type === "Panneau" ? (
+                                    <AccidentPage accident={accident} />
+                                ) : media.type === "Data" ? (
+                                    <DataPage time={time} date={date} temperature={temperature} />
+                                ) : (
+                                    <MediasPage media={media} />
+                                )}
+                            </div>
+                        ))
+                    ) : pageIndex === 0 ? (
+                        <AccidentPage accident={accident} />
+                    ) : (
+                        <DataPage time={time} date={date} temperature={temperature} />
+                    )}
+                </div>
+            );
 }
 
-export default App;
+        export default App;
