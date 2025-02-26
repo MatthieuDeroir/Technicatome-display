@@ -1,0 +1,30 @@
+.scrolling-container {
+    overflow: hidden;
+    position: relative;
+    width: 960px;
+    height: 480px;
+    background-color: white;
+    color: black;
+}
+
+.scrolling-text {
+    display: flex;
+    white-space: nowrap;
+    animation: scroll 5s linear infinite;
+}
+
+.scrolling-text > div {
+    width: 960px;
+    flex-shrink: 0;
+
+}
+
+
+@keyframes scroll {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}

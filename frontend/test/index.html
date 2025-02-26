@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>API Test</title>
+</head>
+<body>
+<div id="auth-container">
+    <form id="loginForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password">
+        <button type="button" onclick="login()">Login</button>
+    </form>
+
+    <form id="signupForm">
+        <label for="signupUsername">Username:</label>
+        <input type="text" id="signupUsername" name="username">
+        <label for="signupPassword">Password:</label>
+        <input type="password" id="signupPassword" name="password">
+        <button type="button" onclick="signup()">Sign Up</button>
+    </form>
+</div>
+
+<div id="data-container" style="display: none;">
+    <!DOCTYPE html>
+    <html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Test API Interface</title>
+        <style>
+            body {
+                font-family: 'Arial', sans-serif;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 0;
+            }
+            header {
+                background: #50b3a2;
+                color: #ffffff;
+                text-align: center;
+                padding: 1em;
+            }
+            #container {
+                margin: auto;
+                width: 50%;
+                padding: 2em;
+            }
+            .button {
+                display: block;
+                width: 100%;
+                margin-top: 1em;
+                padding: 1em;
+                background: #333;
+                color: #fff;
+                text-align: center;
+                cursor: pointer;
+            }
+            .button:hover {
+                background: #50b3a2;
+            }
+            #output {
+                margin-top: 2em;
+            }
+        </style>
+    </head>
+    <body>
+    <header>
+        <h1>API Tester</h1>
+    </header>
+    <div id="container">
+        <form id="accidentForm">
+            <label for="daysWithoutAccident">Days Without Accident:</label>
+            <input type="number" id="daysWithoutAccident" name="daysWithoutAccident">
+            <label for="recordDaysWithoutAccident">Record Days Without Accident:</label>
+            <input type="number" id="recordDaysWithoutAccident" name="recordDaysWithoutAccident">
+            <label for="numberOfAccidentsSinceStartOfTheYear">Number of Accidents Since Start of The Year:</label>
+            <input type="number" id="numberOfAccidentsSinceStartOfTheYear" name="numberOfAccidentsSinceStartOfTheYear">
+            <label for="scrollingText">Scrolling Text:</label>
+            <input type="text" id="scrollingText" name="scrollingText">
+            <label for="resetOnNewYear">Reset on New Year:</label>
+            <input type="checkbox" id="resetOnNewYear" name="resetOnNewYear">
+            <button class="button" type="button" onclick="submitForm()">Submit</button>
+        </form>
+        <div id="output"></div>
+    </div>
+
+
+</div>
+
+<script>
+    async function login() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        try {
+            const response = await fetch('http://localhost:4000/api/auth/signin', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            });
+
+            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+            const data = await response.json();
+            localStorage.setItem('token', data.token); // Store the token in the local storage
+
+            document.getElementById('auth-container').style.display = 'none';
+            document.getElementById('data-container').style.display = 'block';
+        } catch (error) {
+            console.error('Error during login', error);
+        }
+    }
+
+    async function signup() {
+        const username = document.getElementById('signupUsername').value;
+        const password = document.getElementById('signupPassword').value;
+
+        try {
+            const response = await fetch('http://localhost:4000/api/auth/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            });
+
+            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+            const data = await response.json();
+            localStorage.setItem('token', data.token); // Store the token in the local storage
+
+            document.getElementById('auth-container').style.display = 'none';
+            document.getElementById('data-container').style.display = 'block';
+        } catch (error) {
+            console.error('Error during sign up', error);
+        }
+    }
+
+    // Fetch initial data and populate the form
+    window.onload = function() {
+        fetch('http://localhost:4000/api/accident/')
+            .then(response => {
+                if(!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                document.getElementById('daysWithoutAccident').value = data.daysWithoutAccident;
+                document.getElementById('recordDaysWithoutAccident').value = data.recordDaysWithoutAccident;
+                document.getElementById('numberOfAccidentsSinceStartOfTheYear').value = data.numberOfAccidentsSinceStartOfTheYear;
+                document.getElementById('scrollingText').value = data.scrollingText;
+                document.getElementById('resetOnNewYear').checked = data.resetOnNewYear;
+            })
+            .catch(error => {
+                console.error('Error fetching the accident data', error);
+                document.getElementById('output').innerHTML = '<p>Error fetching the accident data</p>';
+            });
+    }
+
+    function submitForm() {
+        const form = document.getElementById('accidentForm');
+        const formData = new FormData(form);
+        const object = {};
+        formData.forEach((value, key) => object[key] = value);
+        if(object.resetOnNewYear === 'on') {
+            object.resetOnNewYear = true;
+        } else {
+            object.resetOnNewYear = false;
+        }
+
+        fetch('http://localhost:4000/api/accident/', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MTE1MGNmNGNlNjIwMWJmODdmM2JhYyIsImlhdCI6MTY5NTYzMzc5MywiZXhwIjoxNjk1NzIwMTkzfQ.8Yqc4CQq4HACFqhCHAH0AW9WlUn6ykaLRQ3TdcYiv_0'
+            },
+            body: JSON.stringify(object)
+        })
+            .then(response => {
+                if(!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                document.getElementById('output').innerHTML = '<p>Data updated successfully!</p>';
+            })
+            .catch(error => {
+                console.error('Error updating the accident data', error);
+                document.getElementById('output').innerHTML = '<p>Error updating the accident data</p>';
+            });
+    }
+</script>
+</body>
+</html>
