@@ -13,19 +13,21 @@ exports.getAccident = async (req, res) => {
 exports.addDayWithoutAccident = async (req, res) => {
   try {
     const accidentInfo = await AccidentSchema.findOne();
-    console.log("accidentInfo", accidentInfo);
     if (!accidentInfo) throw new Error("Accident Info not found");
 
-    const lastUpdated = moment(accidentInfo.lastUpdated); // Assuming lastUpdated is a Date object
-    console.log("lastUpdated", lastUpdated)
-    const currentDate = moment();
-    console.log("currentDate", currentDate)
-
-    // Compare if a day or more has passed
-    if (currentDate.diff(lastUpdated, 'days') >= 1) {
-      if (accidentInfo.daysWithoutAccident + currentDate.diff(lastUpdated, 'days') < 999999) {
-      accidentInfo.daysWithoutAccident += currentDate.diff(lastUpdated, 'days');
-        } else {
+    let today = moment().format("YYYY-MM-DD");
+    let todayMoment = moment(today, "YYYY-MM-DD");
+    let lastUpdatedMoment = moment(accidentInfo.lastUpdated).format("YYYY-MM-DD");
+    let lastUpdated = moment(lastUpdatedMoment, "YYYY-MM-DD");
+	console.log(today)
+	  console.log(todayMoment)
+	  console.log(lastUpdatedMoment)
+	  console.log(lastUpdated)
+    let daysPassed = todayMoment.diff(lastUpdated, 'days');
+console.log(daysPassed)
+    if (daysPassed > 0) {
+      accidentInfo.daysWithoutAccident += daysPassed;
+      if (accidentInfo.daysWithoutAccident >= 999999) {
         accidentInfo.daysWithoutAccident = 999999;
       }
 
@@ -33,18 +35,16 @@ exports.addDayWithoutAccident = async (req, res) => {
         accidentInfo.recordDaysWithoutAccident = accidentInfo.daysWithoutAccident;
       }
 
-      // Update lastUpdated to current date
-      accidentInfo.lastUpdated = currentDate.toDate();
-
+      accidentInfo.lastUpdated = todayMoment.toDate();
       await accidentInfo.save();
-      console.log("Added a day without accident");
     } else {
-      console.log("Less than a day passed since last update, no action taken");
+      console.log("Less than a day passed since last update, no action taken" );
     }
   } catch (err) {
-    console.error("Error while adding a day without accident", err);
+    console.log("Days without accident not updated")
   }
 };
+
 
 exports.updateAccident = async (req, res) => {
   try {
@@ -187,5 +187,18 @@ const resetAccidentsOnNewYear = async () => {
         accidentInfo.numberOfAccidentsSinceStartOfTheYear = 0;
         await accidentInfo.save();
     }
+}
+
+exports.setLastUpdated = async (req, res) => {
+	try {
+		let accidentInfo = await AccidentSchema.findOne();
+		if (!accidentInfo) throw new Error('Accident Info not found');
+
+		accidentInfo.lastUpdated = req.body.lastUpdated;
+		await accidentInfo.save();
+
+	} catch (err) {
+		res.status(401).json({ message : err.message });
+	}
 }
 

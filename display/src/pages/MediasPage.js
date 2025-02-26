@@ -22,6 +22,8 @@ function MediasPage({ media }) {
           }}
           autoPlay
           muted
+          loop
+          preload="auto"
         >
           <source
             src={process.env.REACT_APP_MEDIA_DISPLAY_PATH + media.path}

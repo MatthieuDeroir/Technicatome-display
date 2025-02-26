@@ -1,0 +1,40 @@
+import smbus
+import time
+import requests
+
+bus = smbus.SMBus(1)  # Use I2C bus 1
+lm92_address = 0x48  # LM92 I2C address
+TEMP_REG = 0x00
+api_url = "http://192.168.1.2:4000/api/data"
+
+def read_temperature():
+    # Read data from the LM92 temperature register
+    data = bus.read_i2c_block_data(lm92_address, TEMP_REG, 2)
+
+    # Combine the data bytes into a single value
+    raw_temp = (data[0] << 8) | data[1]
+
+    # Convert raw temperature to Celsius
+    print(raw_temp)
+    temperature = raw_temp / 160 * 1.27 # Adjust conversion formula based on sensor's specification
+    return temperature
+
+while True:
+    temp = read_temperature()
+    print(f"Temperature: {temp}°C")
+
+    # Prepare data for PUT request (format may vary depending on your API)
+    data_to_send = {"temperature": str(temp)}
+
+    # Send a PUT request to update the first element
+    try:
+        response = requests.put(api_url, json=data_to_send)
+        if response.status_code == 200:
+            print("Data successfully updated.")
+        else:
+            print(f"Failed to update data. Status code: {response.status_code}")
+    except requests.exceptions.RequestException as e:
+        print(f"Error sending data: {e}")
+
+    time.sleep(1)
+

@@ -14,7 +14,8 @@ const {
     addDayWithoutAccident,
     updateAccident,
     updateDaysWithoutAccident,
-    updateResetOnNewYear
+    updateResetOnNewYear,
+    setLastUpdated
 } = require('../Controllers/AccidentController');
 
 const authMiddleware = require('../Middlewares/AuthMiddleware');
@@ -33,6 +34,9 @@ router.route('/add-day')
 
 router.route('/update-days')
     .put(authMiddleware.protect, updateDaysWithoutAccident);
+
+router.route('/set-last-updated')
+	.put(setLastUpdated);
 
 
 module.exports = router;
